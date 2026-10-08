@@ -1,11 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wealthpilot</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WealthPilot</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#0b1020;color:#f5f7ff;
+  font-family:Arial,sans-serif;padding:22px
+}
+header{display:flex;justify-content:space-between;
+align-items:center;margin-bottom:28px}
+.logo{font-size:24px;font-weight:bold;color:#66e0b5}
+.tag{color:#9ca8c5;font-size:13px}
+.card{
+  background:#151e33;border:1px solid #26334f;
+  border-radius:18px;padding:20px;margin-bottom:16px
+}
+.label{color:#aab5ce;font-size:14px}
+.balance{font-size:34px;font-weight:bold;margin:12px 0}
+.green{color:#66e0b5}
+button{
+  border:0;border-radius:12px;padding:13px;
+  background:#66e0b5;color:#07120f;
+  font-size:15px;font-weight:bold;width:100%
+}
+h2{font-size:19px;margin:25px 0 14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.metric{font-size:23px;font-weight:bold;margin-top:10px}
+input,select{
+  width:100%;padding:13px;margin:8px 0;
+  border-radius:10px;border:1px solid #34415c;
+  background:#0b1020;color:white;font-size:16px
+}
+.item{display:flex;justify-content:space-between;
+padding:13px 0;border-bottom:1px solid #29344b}
+small{color:#aab5ce}
+footer{text-align:center;color:#7e8aa5;
+font-size:12px;padding:25px 0}
+</style>
 </head>
+
 <body>
-  <h1>Wealthpilot</h1>
-  <p>Investment and portfolio app</p>
+<header>
+  <div>
+    <div class="logo">◆ WealthPilot</div>
+    <div class="tag">YOUR MONEY. YOUR FUTURE.</div>
+  </div>
+  <div>👤</div>
+</header>
+
+<div class="card">
+  <div class="label">Total portfolio value</div>
+  <div class="balance" id="balance">ZMW 0.00</div>
+  <div class="green">Build your financial future</div>
+  <br>
+  <button onclick="showForm()">+ Add transaction</button>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="label">Income</div>
+    <div class="metric green" id="income">ZMW 0</div>
+  </div>
+  <div class="card">
+    <div class="label">Expenses</div>
+    <div class="metric" id="expenses">ZMW 0</div>
+  </div>
+</div>
+
+<div id="form" class="card" style="display:none">
+  <h2>New transaction</h2>
+  <input id="description" placeholder="Description">
+  <input id="amount" type="number" min="0.01"
+    step="0.01" placeholder="Amount (ZMW)">
+  <select id="type">
+    <option value="income">Income</option>
+    <option value="expense">Expense</option>
+  </select>
+  <button onclick="addTransaction()">Save transaction</button>
+</div>
+
+<h2>Recent transactions</h2>
+<div class="card" id="transactions">
+  <small>Your transactions will appear here.</small>
+</div>
+
+<footer>
+  WealthPilot · Personal finance dashboard
+</footer>
+
+<script>
+let transactions=[];
+
+function showForm(){
+  document.getElementById('form').style.display='block';
+}
+
+function addTransaction(){
+  const description=document.getElementById('description').value.trim();
+  const amount=Number(document.getElementById('amount').value);
+  const type=document.getElementById('type').value;
+
+  if(!description||!Number.isFinite(amount)||amount<=0){
+    alert('Enter a description and a valid amount.');
+    return;
+  }
+
+  transactions.unshift({description,amount,type});
+  render();
+  document.getElementById('description').value='';
+  document.getElementById('amount').value='';
+  document.getElementById('form').style.display='none';
+}
+
+function render(){
+  let income=0,expenses=0;
+  transactions.forEach(t=>{
+    if(t.type==='income') income+=t.amount;
+    else expenses+=t.amount;
+  });
+
+  const money=n=>'ZMW '+n.toLocaleString('en-ZM',{
+    minimumFractionDigits:2,maximumFractionDigits:2
+  });
+
+  document.getElementById('balance').textContent=money(income-expenses);
+  document.getElementById('income').textContent=money(income);
+  document.getElementById('expenses').textContent=money(expenses);
+
+  document.getElementById('transactions').innerHTML=
+    transactions.length ? transactions.map(t=>
+      '<div class="item"><span>'+escapeText(t.description)+
+      '<br><small>'+t.type+'</small></span><strong>'+
+      (t.type==='income'?'+':'−')+money(t.amount)+'</strong></div>'
+    ).join('') : '<small>Your transactions will appear here.</small>';
+}
+
+function escapeText(s){
+  return s.replace(/[&<>"']/g,c=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;',
+    '"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+</script>
 </body>
 </html>
