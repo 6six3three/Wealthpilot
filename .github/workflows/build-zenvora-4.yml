@@ -5,8 +5,9 @@ on:
   push:
     branches: [main]
     paths:
-      - 'Zenvora_4_0_Android_APK_Build_Project.zip'
+      - 'zenvora-v4.html'
       - '.github/workflows/build-zenvora-4.yml'
+      - 'Zenvora zip_Android_Project.zip'
 
 permissions:
   contents: read
@@ -15,35 +16,83 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Check out Zenvora repository
         uses: actions/checkout@v4
+
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
+
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
+
       - name: Install Android SDK 35
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.11.1'
-      - name: Extract Zenvora 4.0 Android project
+          gradle-version: '8.7'
+
+      - name: Prepare Android project and include Zenvora 4.0
         shell: bash
         run: |
           set -euo pipefail
-          test -s Zenvora_4_0_Android_APK_Build_Project.zip
+          ARCHIVE="Zenvora zip_Android_Project.zip"
+          test -s "$ARCHIVE"
+          test -s zenvora-v4.html
           mkdir -p "$RUNNER_TEMP/zenvora4"
-          unzip -q Zenvora_4_0_Android_APK_Build_Project.zip -d "$RUNNER_TEMP/zenvora4"
-          test -s "$RUNNER_TEMP/zenvora4/app/src/main/assets/index.html"
-          echo "PROJECT_DIR=$RUNNER_TEMP/zenvora4" >> "$GITHUB_ENV"
-      - name: Compile offline testing APK
+          unzip -q "$ARCHIVE" -d "$RUNNER_TEMP/zenvora4"
+          SETTINGS="$(find "$RUNNER_TEMP/zenvora4" -type f -name settings.gradle -print -quit)"
+          test -n "$SETTINGS"
+          PROJECT_DIR="$(dirname "$SETTINGS")"
+          test -f "$PROJECT_DIR/app/src/main/assets/index.html"
+          install -m 0644 zenvora-v4.html "$PROJECT_DIR/app/src/main/assets/index.html"
+          grep -q 'ZENVORA · VERSION 4.0' "$PROJECT_DIR/app/src/main/assets/index.html"
+          echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
+
+      - name: Set the official Zenvora logo as launcher icon
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check pillow
+          python3 - <<'PY'
+          import base64, io, os, re
+          from pathlib import Path
+          from PIL import Image, ImageOps
+          root=Path(os.environ["PROJECT_DIR"])
+          html=(root/'app/src/main/assets/index.html').read_text(encoding='utf-8')
+          match=re.search(r'<img\b(?=[^>]*\bclass="zen-brand-icon")[^>]*\bsrc="data:image/webp;base64,([^"]+)"',html,re.S)
+          if not match: raise RuntimeError('The official Zenvora logo was not found inside the app')
+          icon=Image.open(io.BytesIO(base64.b64decode(match.group(1)))).convert("RGBA")
+          for density,size in (('mdpi',48),('hdpi',72),('xhdpi',96),('xxhdpi',144),('xxxhdpi',192)):
+              target=root/'app/src/main/res'/('mipmap-'+density)
+              target.mkdir(parents=True,exist_ok=True)
+              rendered=ImageOps.fit(icon,(size,size),method=Image.Resampling.LANCZOS)
+              for name in ('ic_launcher.png','ic_launcher_round.png'):
+                  rendered.save(target/name,format='PNG',optimize=True)
+          strings=root/'app/src/main/res/values/strings.xml'
+          if strings.exists():
+              value=strings.read_text()
+              value=re.sub(r'(<string\s+name="app_name">).*?(</string>)',r'\1Zenvora\2',value,flags=re.S)
+              strings.write_text(value)
+          gradle=root/'app/build.gradle'
+          if gradle.exists():
+              value=gradle.read_text()
+              value=re.sub(r'\bversionCode\s+\d+', 'versionCode 40',value)
+              value=re.sub(r'\bversionName\s+["\x27][^"\x27]+["\x27]',"versionName '4.0'",value)
+              gradle.write_text(value)
+          print('Bundled the full offline Zenvora 4.0 app and official icon.')
+          PY
+
+      - name: Build installable Android APK
         run: gradle --no-daemon -p "$PROJECT_DIR" :app:assembleDebug
-      - name: Upload installable test APK
+
+      - name: Upload APK for installation
         uses: actions/upload-artifact@v4
         with:
           name: Zenvora-4.0-testing-apk
-          path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/debug/app-debug.apk
+          path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
