@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - '*.zip'
+      - 'index.html'
       - '.github/workflows/build-zenvora.yml'
 
 permissions:
@@ -55,6 +56,15 @@ jobs:
           PROJECT_DIR="$(dirname "$SETTINGS")"
           test -f "$PROJECT_DIR/app/src/main/assets/index.html"
           echo "dir=$PROJECT_DIR" >> "$GITHUB_OUTPUT"
+
+      - name: Install Zenvora Pride 3.0 into Android assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          APP_HTML="${{ steps.project.outputs.dir }}/app/src/main/assets/index.html"
+          install -m 0644 "$GITHUB_WORKSPACE/index.html" "$APP_HTML"
+          test -s "$APP_HTML"
+          grep -q 'Heritage Atlas 3.0' "$APP_HTML"
 
       - name: Build APK
         run: gradle --no-daemon -p "${{ steps.project.outputs.dir }}" :app:assembleDebug
