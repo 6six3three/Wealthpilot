@@ -1,0 +1,49 @@
+name: Build Zenvora 4.0 APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'Zenvora_4_0_Android_APK_Build_Project.zip'
+      - '.github/workflows/build-zenvora-4.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Android SDK 35
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - name: Extract Zenvora 4.0 Android project
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s Zenvora_4_0_Android_APK_Build_Project.zip
+          mkdir -p "$RUNNER_TEMP/zenvora4"
+          unzip -q Zenvora_4_0_Android_APK_Build_Project.zip -d "$RUNNER_TEMP/zenvora4"
+          test -s "$RUNNER_TEMP/zenvora4/app/src/main/assets/index.html"
+          echo "PROJECT_DIR=$RUNNER_TEMP/zenvora4" >> "$GITHUB_ENV"
+      - name: Compile offline testing APK
+        run: gradle --no-daemon -p "$PROJECT_DIR" :app:assembleDebug
+      - name: Upload installable test APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Zenvora-4.0-testing-apk
+          path: ${{ env.PROJECT_DIR }}/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
