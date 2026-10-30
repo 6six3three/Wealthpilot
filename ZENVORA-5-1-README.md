@@ -1,0 +1,1 @@
+Zenvora Pride 5.1. Official branded Android icon and splash. Build from Actions > Build Zenvora Pride 5.1 APK. Download ZIP under Artifacts, extract app-debug.apk. This is a debug APK; back up app data before removing earlier versions.
