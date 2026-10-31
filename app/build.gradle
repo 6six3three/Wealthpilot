@@ -1,3 +1,9 @@
 plugins { id 'com.android.application' }
-android { namespace 'zm.zenvora.pride'; compileSdk 35; defaultConfig { applicationId 'zm.zenvora.pride'; minSdk 24; targetSdk 35; versionCode 6; versionName '5.1' }; buildTypes { release { minifyEnabled false } }; compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 } }
+android {
+ namespace 'zm.zenvora.pride'
+ compileSdk 35
+ defaultConfig { applicationId 'zm.zenvora.pride'; minSdk 24; targetSdk 35; versionCode 11; versionName '7.3' }
+ buildTypes { release { minifyEnabled false } }
+ compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}
 dependencies { implementation 'androidx.webkit:webkit:1.12.1' }
