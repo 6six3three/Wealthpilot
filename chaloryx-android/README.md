@@ -1,21 +1,21 @@
-# CHALORYX Market Lab 4.0 — Android private-test build
+# CHALORYX Market Lab 4.1 — Internet diagnostics and second exchange
 
-Package: `com.chaloryx.marketlab.v4`. Installs alongside 2.1 and 3.0, preserving their local workspaces. Export an existing workspace backup, then import into 4.0.
+Version 4.1 is a **paper-trading and market-research** Android application. It is not connected to a real-money brokerage and does not make guaranteed predictions.
 
-## Guided mobile workflow
-1. **Load public data:** tap the first green button. Frankfurter v2 provides central-bank/reference daily FX histories for EUR/USD, GBP/USD and USD/ZAR; Coinbase Exchange provides completed historical daily OHLCV for BTC/USD, ETH/USD and SOL/USD. No forecasts or invented prices.
-2. **Inspect a signal:** only recent public-source observations qualify for the guided shortcut. Dates, source and stale/synthetic status are always disclosed. BULLISH / BEARISH are transparent trend rule flags, not guaranteed market direction.
-3. **Practice virtually:** cash-funded, fee-aware paper trading only. No real-money execution.
+## Mobile workflow
+1. On the Home screen, tap **Check internet and market-data connections**. The connection doctor tests a lightweight Frankfurter FX response, Coinbase Exchange candles, and Kraken backup candles. It reports exact success/failure per service.
+2. Tap **① Load available public data**. CHALORYX fetches historical FX reference data (Frankfurter), BTC/ETH/SOL daily OHLCV (Coinbase) and falls back to **Kraken** if Coinbase fails. Every series shows an observation date and original source.
+3. Tap **② Inspect a signal** to see indicators, or **③ Practice virtually** for risk-free demonstration trades.
+4. Save a workspace backup from Settings. Data remain available offline after import/fetch.
 
-Advanced tabs support indicators, long-only deterministic backtesting, risk sizing, CSV import, forward signal audit and JSON backup/restore. Gold and stocks require authorized provider access or independently verified CSV. Manual data fetch only; no background polling.
+Important: FX quotes are *reference closing observations*; crypto candles exclude incomplete current UTC day and are not real-time executable prices. Stock and gold coverage require independently verified CSV or a legitimately obtained read-only historical market-data key. API availability, coverage and CORS restrictions can change.
 
-## Tests
-- 24 built-in deterministic known-value checks (RSI, SMA, EMA, MACD, Bollinger, ATR, validation and risk-related invariants).
-- 243 independent browser QA assertions were completed before this build: 5 viewports, 160 indicator comparisons with independent Python implementations, CSV validation, strategy tests, paper trading, synthetic safeguards and mocked public provider payloads.
-- JavaScript parsed successfully with Node; no uncaught browser errors observed during this test suite.
-- The test suite validates calculation logic and app behavior with fixtures; it cannot prove predictive accuracy, that external feeds always work, or native Android compatibility on a specific device.
+## Technical and testing
+- Unique application ID `com.chaloryx.marketlab.v41`: installs alongside older tested versions without overwriting localStorage.
+- Historical data fetched manually only (no background subscription, promises, or push alerts).
+- Kraken backup uses `https://api.kraken.com/0/public/OHLC?pair=XBTUSD|ETHUSD|SOLUSD&interval=1440`; verifies timestamp, OHLC ranges, positive close, minimum 60 completed bars.
+- Connectivity doctor checks *response shape* without relying on invented data.
+- Restrictive CSP includes only directly used data sources; removed keyless CryptoCompare flow because it may require an API key.
+- Tested via Node JS syntax check and Chromium/Playwright browser checks at 360/390/768 px: 72 internal math diagnostics, mocked FX + Kraken provider histories, Coinbase failure/recovery and six-symbol guided refresh. Those tests verify logic and fallback, **not live data uptime, profitability or 100% accuracy**.
 
-## Security and release
-Embedded restrictive Content Security Policy; HTTPS allowlist for data fetches; no broker API keys or real-money orders.
-Twelve Data **optional** read-only key remains an in-memory field: never enter a trading/exchange account password or secret.
-Build with `.github/workflows/build-chaloryx-android.yml`. Output is a debug APK for private device review, not a Play Store release, audited broker system or certified financial adviser. 
+This build is a debug APK for user testing, not signed production-ready brokerage software. No real trades and no broker credentials.
