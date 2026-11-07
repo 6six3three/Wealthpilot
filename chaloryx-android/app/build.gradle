@@ -3,11 +3,11 @@ android {
     namespace 'com.chaloryx.marketlab'
     compileSdk 35
     defaultConfig {
-        applicationId 'com.chaloryx.marketlab.v3'
+        applicationId 'com.chaloryx.marketlab.v4'
         minSdk 29
         targetSdk 35
-        versionCode 30
-        versionName '3.0.0'
+        versionCode 40
+        versionName '4.0.0'
     }
     buildFeatures { buildConfig true }
     buildTypes {
