@@ -1,8 +1,9 @@
-name: Build CHALORYX Market Lab Android APK
+name: Build CHALORYX 3.0 Android APK
 on:
   push:
     branches:
       - chaloryx-android-market-lab-2-1
+      - chaloryx-market-lab-3-0
     paths:
       - "chaloryx-android/**"
       - ".github/workflows/build-chaloryx-android.yml"
@@ -38,7 +39,7 @@ jobs:
       - name: Package installable APK
         uses: actions/upload-artifact@v4
         with:
-          name: CHALORYX-Market-Lab-2.1-Android-APK
+          name: CHALORYX-Market-Lab-3.0-Android-APK
           path: chaloryx-android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
