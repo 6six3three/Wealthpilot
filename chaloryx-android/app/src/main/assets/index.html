@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#09151e">
 <meta name="description" content="CHALORYX Market Lab: offline-first multi-market research, market-data imports, technical scans, backtests, paper trading and risk controls.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://api.frankfurter.dev https://api.exchange.coinbase.com https://api.twelvedata.com https://min-api.cryptocompare.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://api.frankfurter.dev https://api.exchange.coinbase.com https://api.kraken.com https://api.twelvedata.com">
 <title>CHALORYX • Market Lab 4.0</title>
 <style>
 :root{color-scheme:dark;--bg:#071119;--surface:#101f2b;--surface2:#132838;--border:#2a4652;--text:#eaf7f7;--muted:#9ab5c0;--mint:#64e5c0;--cyan:#8edaf7;--amber:#ffd08d;--red:#ff8898;--violet:#c3acff;--radius:19px;--shadow:0 18px 40px #0003}
@@ -30,14 +30,17 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 </head>
 <body>
 <div class="shell">
-<header class="masthead"><div class="crest" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none"><path d="M5 25 13 9l5 8 5-7 8 15" stroke="#07323a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 29h24" stroke="#07323a" stroke-width="3" stroke-linecap="round"/></svg></div><div class="brand"><h1>CHALORYX</h1><p>Market Lab / clarity engine 4.0</p></div><div class="header-right"><div class="live-dot" id="headStatus">● DATA-DRIVEN · NOT LIVE</div><div class="clock" id="clock">Local workspace</div></div></header>
+<header class="masthead"><div class="crest" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none"><path d="M5 25 13 9l5 8 5-7 8 15" stroke="#07323a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 29h24" stroke="#07323a" stroke-width="3" stroke-linecap="round"/></svg></div><div class="brand"><h1>CHALORYX</h1><p>Market Lab / clarity engine 4.1</p></div><div class="header-right"><div class="live-dot" id="headStatus">● DATA-DRIVEN · NOT LIVE</div><div class="clock" id="clock">Local workspace</div></div></header>
 <div class="disclaimer"><b>RESEARCH + PAPER TRADING ONLY.</b> No money is deposited, no real orders are submitted, and signals are not guarantees. Prices can be delayed, stale or imported. Check source/date before acting. Real brokerage execution, secure servers, compliance and live-data licensing require a separate deployment.</div>
 <nav class="tabs" aria-label="Main navigation" id="topnav"><button class="active" data-tab="home">◆ Command</button><button data-tab="markets">▦ Markets & data</button><button data-tab="analyze">⌁ Intelligence</button><button data-tab="test">↗ Strategy lab</button><button data-tab="paper">◎ Paper desk</button><button data-tab="audit">◈ Evidence</button><button data-tab="settings">⚙ Control room</button></nav>
 <main>
 <section id="home" class="pane active">
 <div class="hero"><div class="eyebrow">Independent research platform · Zambia built</div><h2>Understand markets.<br>Never guess what data means.</h2><p>Follow three clear steps: load dated prices, examine a transparent rule-based signal, and practice without risking money. Your research workspace remains usable offline after prices are saved. Market forecasts are never 100% certain.</p><div class="hero-actions"><button class="btn" id="easyLoad">① Load available public data</button><button class="btn alt" id="easyScan">② Inspect a signal</button><button class="btn ghost" id="easyPaper">③ Practice virtually</button></div></div>
 <div class="grid guided" style="margin-top:14px">
- <div class="card span2"><h3>Three-step guided mode</h3><div class="step"><b>①</b> Load data — no account, no API key for the supported FX and crypto reference series.</div><div class="step"><b>②</b> Check the source and date; BULLISH / BEARISH means a rule condition, <b>NOT</b> a guaranteed trade.</div><div class="step"><b>③</b> Practice using virtual funds. If a feed is unavailable, your saved research still works.</div><div class="notice warn" id="guideStatus" role="status">Start with step ①. Stock and gold histories still need authorized provider access or an imported CSV.</div></div>
+ <div class="card span2"><h3>Three-step guided mode</h3><div class="step"><b>①</b> Load data — no account, no API key for the supported FX and crypto reference series.</div><div class="step"><b>②</b> Check the source and date; BULLISH / BEARISH means a rule condition, <b>NOT</b> a guaranteed trade.</div><div class="step"><b>③</b> Practice using virtual funds. If a feed is unavailable, your saved research still works.</div><div class="notice warn" id="guideStatus" role="status">Start with step ①. Stock and gold histories still need authorized provider access or an imported CSV.</div>
+   <hr><h3>Internet connection doctor</h3><p class="tip">Check if your Android app can reach the two supported public sources. This does not need a brokerage account or API key.</p>
+   <button class="btn alt fullwidth" id="doctorBtn">Check internet and market-data connections</button>
+   <div class="notice" id="doctorStatus" role="status" aria-live="polite" style="margin-top:10px">Not checked yet. Offline calculations and saved research remain available.</div></div>
  <div class="card span2"><h3>Truth and reliability</h3><div class="statusline"><span class="chip warn">NO 100% WIN CLAIMS</span><span class="chip green">NO REAL MONEY</span></div><p>CHALORYX shows source dates and evidence. It never invents missing prices or advertises a guaranteed prediction rate. A successful code test does <b>not</b> prove trading profitability.</p><div class="notice" id="quickHealth" role="status">Device diagnostics have not run yet.</div><button class="btn alt fullwidth" id="runDiagnostics" style="margin-top:10px">Run offline calculation checks</button></div>
 </div>
 <div class="section"><h2>Mission control</h2><small id="overviewStamp">Updated on your device</small></div>
@@ -54,14 +57,14 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 <label for="rawImport">Or paste historical prices / OHLC CSV</label><textarea id="rawImport" spellcheck="false" placeholder="date,open,high,low,close,volume\n2026-01-01,100,103,98,102,15000\n...\n\nOr one close price per line (at least 60)."></textarea>
 <div class="row"><button class="btn" id="importBtn">Validate & save data</button><button class="btn alt" id="sampleBtn">Install SYNTHETIC test data</button></div><p class="tip">Minimum 60 rows. Maximum 2,500 rows per instrument. Strictly ascending dates. OHLC is validated. Data stays on this phone/browser until you export or clear it. Synthetic data is clearly marked.</p>
 
-<hr><h3>4.0 no-key reference data · no key</h3>
+<hr><h3>4.1 no-key historical data · no key</h3>
 <p><b>FX:</b> Central-bank daily reference rates via Frankfurter v2, not tradeable forex bid/ask prices. <b>Crypto:</b> Coinbase Exchange public daily OHLCV; recent daily candles may be incomplete. Tap only when connected.</p>
-<div class="row"><button class="btn alt" id="fetchFX">Fetch selected FX reference</button><button class="btn alt" id="fetchCoinbase">Fetch selected crypto</button></div>
+<div class="row"><button class="btn alt" id="fetchFX">Fetch selected FX reference</button><button class="btn alt" id="fetchCoinbase">Fetch selected crypto (with backup)</button></div>
 <button class="btn ghost fullwidth" id="refreshPublic" style="margin-top:10px">Refresh public FX + crypto board (6 requests)</button>
-<div class="notice warn" id="publicStatus" style="margin-top:10px">Offline mode: saved datasets remain available. No stock or gold exchange-grade live feed is included; those markets need an authorized data provider or CSV.</div>
+<div class="notice warn" id="publicStatus" role="status" aria-live="polite" style="margin-top:10px">Offline mode: saved datasets remain available. No stock or gold exchange-grade live feed is included; those markets need an authorized data provider or CSV.</div>
 <hr><h3>Optional online data connectors</h3><p>Internet and source access required. Requests happen only when you tap Fetch. Provider plan restrictions and API/CORS limitations can prevent access.</p>
 <label for="tdKey">Twelve Data API key (not saved)</label><input id="tdKey" type="password" autocomplete="off" autocapitalize="off" placeholder="Enter your own read-only market-data key"/><div class="row"><button class="btn alt" id="fetchTD">Fetch selected instrument</button><button class="btn ghost" id="toggleKey" type="button">Show / hide</button></div><p class="tip">Supports eligible forex, metals, crypto and stocks on your provider plan. Your key is sent to Twelve Data over HTTPS; as a browser integration it is visible to the provider and to someone with access to your device. For a publicly launched product, proxy secrets through a secure server instead.</p>
-<button class="btn alt fullwidth" id="fetchCrypto">Fetch public BTC / ETH / SOL candles</button><p class="tip">CryptoCompare public endpoint (availability/rate limits may change). Data is aggregated daily OHLCV, not an executable broker bid/ask quote. If blocked, use CSV.</p>
+<button class="btn alt fullwidth" id="fetchCrypto">Fetch BTC / ETH / SOL with backup</button><p class="tip">Extra crypto refresh using Coinbase Exchange, with Kraken public OHLCV as backup. Both may be delayed or unavailable. Never an executable broker quote.</p>
 <div id="dataStatus" class="notice" style="margin-top:12px" role="status">Select an asset and import data or use an online connector.</div></div>
 <div class="card full"><h3>Add a custom tracked symbol</h3><div class="fieldgrid"><div><label for="newSymbol">Symbol (e.g. TSLA or AUD/USD)</label><input id="newSymbol" placeholder="TSLA" maxlength="20" autocapitalize="characters"></div><div><label for="newMarket">Market</label><select id="newMarket"><option>Stocks</option><option>Forex</option><option>Metals</option><option>Crypto</option></select></div></div><button class="btn alt" id="addSymbol">Add to watchlist</button></div>
 <div class="card full"><h3>Price alerts</h3><p>These are evaluated when NEW data is imported or fetched while the page is open. They cannot monitor markets in the background or send push notifications.</p><div class="fieldgrid"><div><label for="alertAsset">Instrument</label><select id="alertAsset"></select></div><div><label for="alertDirection">Condition</label><select id="alertDirection"><option value="above">Crosses above</option><option value="below">Crosses below</option></select></div><div><label for="alertPrice">Trigger price</label><input id="alertPrice" type="number" min="0.00000001" step="any" placeholder="100.00" inputmode="decimal"></div><div style="align-self:end"><button class="btn fullwidth" id="createAlert">Arm alert</button></div></div><div class="list" style="margin-top:12px" id="alertsList"></div></div>
@@ -117,7 +120,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 <div class="card span2"><h3>Architecture / limitations</h3><p><b>Offline:</b> All saved data, calculations, paper trades, charting, alerts on import and exports.</p><p><b>Online:</b> Optional market-data requests to Frankfurter, Coinbase, Twelve Data or CryptoCompare. Availability depends on internet, CORS and provider entitlements. Data may be delayed.</p><p><b>No broker integration:</b> This application cannot trade your real account. It does not contain an AI model or claim high-certainty predictions. For real trades a separate secure server, broker API, identity verification, cybersecurity review and applicable legal approvals are required.</p><p><b>Public API resources:</b> <a href="https://twelvedata.com/docs" target="_self" rel="noopener noreferrer">Twelve Data documentation</a>  · <a href="https://frankfurter.dev/" target="_blank" rel="noopener noreferrer">Frankfurter</a> · <a href="https://docs.cdp.coinbase.com/exchange/reference/exchangerestapi_getproductcandles" target="_blank" rel="noopener noreferrer">Coinbase Exchange</a> · <a href="https://min-api.cryptocompare.com/documentation" target="_self" rel="noopener noreferrer">CryptoCompare documentation</a>.</p><p>Company name used as a project brand; trademark, regulatory and commercial availability have not been verified.</p></div>
 </div></section>
 </main>
-<footer>CHALORYX Market Lab 4.0 · independently checked research build · Android market intelligence · forward audit<br>Paper trading only · No real-money orders · No guaranteed outcomes · You control every data update</footer>
+<footer>CHALORYX Market Lab 4.1 · market connectivity + diagnostics build · Android market intelligence · forward audit<br>Paper trading only · No real-money orders · No guaranteed outcomes · You control every data update</footer>
 </div>
 <nav id="moreMenu" class="more-menu" aria-label="Additional screens" hidden>
   <button class="btn alt" data-tab="test">↗ Strategy backtests</button>
@@ -204,7 +207,7 @@ function walletValue(){let mv=0,missing=0,count=0;for(const [symbol,pos] of Obje
 function renderHome(){const dsCount=Object.keys(state.datasets).length,p=walletValue();$('kData').textContent=dsCount+' / '+state.assets.length;$('kEquity').textContent=p.missing?'Incomplete':usd(p.equity);$('kPositions').textContent=p.positions;$('kAlerts').textContent=state.alerts.filter(a=>!a.triggered).length;$('overviewStamp').textContent=new Date().toLocaleString();
  const picks=['EUR/USD','XAU/USD','BTC/USD','ETH/USD','AAPL','SPY'];const root=$('marketTiles');root.replaceChildren();for(const sym of picks){const d=state.datasets[sym],bar=d?.bars.at(-1),prev=d?.bars.at(-2);const a=state.assets.find(x=>x.symbol===sym);if(!a)continue;const card=document.createElement('div');card.className='card span2';const change=(bar&&prev)?(bar.close/prev.close-1)*100:NaN;card.innerHTML='<span class="kicker">'+escapeHtml(a.market)+'</span><div class="big">'+(bar?nicePrice(bar.close):'—')+'</div><strong>'+escapeHtml(sym)+'</strong> &nbsp;<span class="small '+(change>=0?'good':'bad')+'">'+(Number.isFinite(change)?pct(change):'No price history')+'</span><div class="statusline">'+sourceChip(d)+'</div><p>'+escapeHtml(d?ageLabel(d):'Import or fetch historical data to populate.')+'</p>';
  const btn=document.createElement('button');btn.className='btn alt tiny';btn.textContent=d?'Analyse →':'Get data →';btn.addEventListener('click',()=>{if(d){scanSymbol=sym;syncChoices();go('analyze');}else{$('dataAsset').value=sym;go('markets');}});card.append(btn);root.append(card);}
- $('integrity').textContent=dsCount?'Loaded '+dsCount+' verified-format dataset(s). Source authenticity and timeliness still require user verification. Synthetic entries must never be mistaken for market quotes.':'No datasets installed. Every unknown price remains blank. Import real historical prices, or use a supported provider when online.';
+ $('integrity').textContent=dsCount?'Loaded '+dsCount+' format-validated dataset(s). Source authenticity and timeliness still require user verification. Synthetic entries must never be mistaken for market quotes.':'No datasets installed. Every unknown price remains blank. Import real historical prices, or use a supported provider when online.';
  $('headStatus').textContent=dsCount?'● '+dsCount+' SAVED DATASETS':'● NO LIVE TICKER';$('clock').textContent='Local · '+new Date().toLocaleTimeString();}
 function renderAssets(){const root=$('assetList');root.replaceChildren();for(const a of state.assets.filter(a=>filter==='All'||a.market===filter)){
  const d=state.datasets[a.symbol],bar=d?.bars.at(-1),prev=d?.bars.at(-2),pc=bar&&prev?(bar.close/prev.close-1)*100:NaN;
@@ -236,14 +239,39 @@ $('sampleBtn').addEventListener('click',()=>{try{const a=state.assets.find(a=>a.
   const d=validateDataset({symbol:a.symbol,market:a.market,interval:'1day',source:'SYNTHETIC generated curve — NOT REAL MARKET DATA',origin:'synthetic',savedAt:new Date().toISOString(),bars});verifyDatasetAndSave(d);report('Installed clearly marked SYNTHETIC data for '+a.symbol+'. This dataset is for testing buttons, calculations and charts only.');
  }catch(e){report(e.message,true);}});
 $('addSymbol').addEventListener('click',()=>{try{const symbol=safeSymbol($('newSymbol').value),market=$('newMarket').value;if(state.assets.some(a=>a.symbol===symbol))throw Error('Symbol is already tracked.');if(state.assets.length>=70)throw Error('Watchlist limit is 70 assets.');state.assets.push({symbol,market});save();renderAll();$('dataAsset').value=symbol;$('newSymbol').value='';toast(symbol+' added. You can import its history now.');}catch(e){toast(e.message,true);}});
-async function requestJSON(url){const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),14000);try{const r=await fetch(url,{signal:ctrl.signal,cache:'no-store',referrerPolicy:'no-referrer'});if(!r.ok)throw Error('HTTP '+r.status+' from data provider.');return await r.json();}catch(e){throw Error(e.name==='AbortError'?'Request timed out. Check connection or try CSV.':e.message);}finally{clearTimeout(timeout);}}
+async function requestJSON(url){
+ const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),14500);
+ try{
+  if(navigator.onLine===false)throw Error('Phone reports no internet connection. Check Wi-Fi or mobile data.');
+  const r=await fetch(url,{signal:ctrl.signal,cache:'no-store',referrerPolicy:'no-referrer',credentials:'omit'});
+  if(!r.ok)throw Error('Provider returned HTTP '+r.status+(r.status===429?' (rate limited; try again later)':'')+'.');
+  const payload=await r.json();
+  if(!payload||typeof payload!=='object')throw Error('Provider returned invalid JSON.');
+  return payload;
+ }catch(e){
+  const msg=String(e.message||'');
+  if(e.name==='AbortError')throw Error('Request timed out. Try mobile data/Wi-Fi or import a CSV.');
+  if(e.name==='TypeError'&&/fetch|network/i.test(msg))throw Error('Connection refused or browser/CORS restriction. Check internet, then use Connection Doctor.');
+  throw Error(msg.replace(/apikey=[^&\s]*/ig,'apikey=[REDACTED]'));
+ }finally{clearTimeout(timeout);}
+}
 function parseProviderValues(a,symbol,market,interval,source,origin){if(!Array.isArray(a)||!a.length)throw Error('Provider supplied no candles.');const sorted=[...a].sort((x,y)=>Date.parse(x.datetime||x.date)-Date.parse(y.datetime||y.date));const bars=sorted.map(x=>({date:String(x.datetime||x.date||'').trim(),open:Number(x.open),high:Number(x.high),low:Number(x.low),close:Number(x.close),volume:x.volume==null?null:Number(x.volume)}));return validateDataset({symbol,market,interval,source,origin,savedAt:new Date().toISOString(),bars});}
 $('fetchTD').addEventListener('click',async()=>{const btn=$('fetchTD');try{keyCache=$('tdKey').value.trim();if(!keyCache)throw Error('Enter your Twelve Data API key.');const symbol=$('dataAsset').value,a=state.assets.find(x=>x.symbol===symbol);btn.disabled=true;report('Requesting data securely over HTTPS for '+symbol+'…');const url='https://api.twelvedata.com/time_series?'+new URLSearchParams({symbol,interval:$('interval').value,outputsize:'220',apikey:keyCache,format:'JSON'});const res=await requestJSON(url);if(res.status==='error'||!Array.isArray(res.values))throw Error(res.message||'Provider returned no usable series. Check key, plan and symbol.');const d=parseProviderValues(res.values,symbol,a.market,$('interval').value,'Twelve Data · historical candles','provider');verifyDatasetAndSave(d);report('Fetched '+d.bars.length+' '+d.interval+' bars for '+symbol+' from Twelve Data. Last bar: '+d.bars.at(-1).date+'. Check whether bar is complete/delayed.');
  }catch(e){report('Online fetch unavailable: '+e.message,true);}finally{btn.disabled=false;}});
 $('toggleKey').addEventListener('click',()=>{$('tdKey').type=$('tdKey').type==='password'?'text':'password';});
-$('fetchCrypto').addEventListener('click',async()=>{const btn=$('fetchCrypto');btn.disabled=true;let successful=[],failed=[];try{for(const symbol of ['BTC/USD','ETH/USD','SOL/USD']){try{const fsym=symbol.split('/')[0];report('Fetching historical CryptoCompare candles for '+symbol+'…');const url='https://min-api.cryptocompare.com/data/v2/histoday?'+new URLSearchParams({fsym,tsym:'USD',limit:'220'});const r=await requestJSON(url);if(r.Response==='Error')throw Error(r.Message||'Provider error');const vals=r?.Data?.Data;if(!Array.isArray(vals))throw Error('Unexpected provider response');const bars=vals.filter(x=>x&&Number(x.close)>0).map(x=>({date:new Date(Number(x.time)*1000).toISOString().slice(0,10),open:x.open,high:x.high,low:x.low,close:x.close,volume:x.volumefrom??null}));const d=validateDataset({symbol,market:'Crypto',interval:'1day',source:'CryptoCompare · aggregated daily OHLCV',origin:'crypto',savedAt:new Date().toISOString(),bars});verifyDatasetAndSave(d);successful.push(symbol);}catch(e){failed.push(symbol+': '+e.message);}}
- report('Crypto fetch: '+(successful.length?successful.join(', ')+' updated. ':'No updates. ')+(failed.length?'Failed: '+failed.join(' | '):'Data saved.'),!!failed.length);
- }finally{btn.disabled=false;}});
+$('fetchCrypto').addEventListener('click',async()=>{
+ const btn=$('fetchCrypto');btn.disabled=true;
+ const successful=[],failed=[];
+ try{
+  for(const symbol of ['BTC/USD','ETH/USD','SOL/USD']){
+   try{report('Refreshing '+symbol+' from Coinbase or Kraken (backup)…');
+    const d=await fetchCryptoWithBackup(symbol);
+    successful.push(symbol+' ['+d.source.split(' · ')[0]+']');
+   }catch(e){failed.push(symbol+': '+e.message);}
+  }
+  report('Crypto history: '+successful.length+'/3 updated. '+successful.join(', ')+(failed.length?' · Unavailable: '+failed.join(' | '):''),failed.length>0);
+ }finally{btn.disabled=false;}
+});
 function checkAlerts(symbol,oldDs,newDs){if(!oldDs||!newDs)return;const oldBar=oldDs.bars.at(-1),newBar=newDs.bars.at(-1),oldPrice=oldBar.close,newPrice=newBar.close;const dated=oldBar.date&&newBar.date&&Number.isFinite(Date.parse(oldBar.date))&&Number.isFinite(Date.parse(newBar.date));const fresh=dated?(Date.parse(newBar.date)>Date.parse(oldBar.date)||(Date.parse(newBar.date)===Date.parse(oldBar.date)&&oldDs.source===newDs.source&&['provider','crypto'].includes(newDs.origin))):(newDs.bars.length>oldDs.bars.length&&oldDs.bars.every((b,i)=>b.close===newDs.bars[i].close));if(!fresh||oldPrice===newPrice)return;let fired=[];for(const a of state.alerts){if(a.symbol!==symbol||a.triggered)continue;const crossed=a.direction==='above'?oldPrice<a.price&&newPrice>=a.price:oldPrice>a.price&&newPrice<=a.price;if(crossed){a.triggered=true;fired.push(symbol+' crossed '+a.direction+' '+nicePrice(a.price));}}if(fired.length){save();toast('PRICE ALERT: '+fired.join(' · '));}}
 $('createAlert').addEventListener('click',()=>{const price=Number($('alertPrice').value),symbol=$('alertAsset').value;if(!Number.isFinite(price)||price<=0)return toast('Set a positive alert price.',true);if(state.alerts.length>=100)return toast('Alert limit reached (100).',true);state.alerts.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),symbol,direction:$('alertDirection').value,price,triggered:false,created:new Date().toISOString()});save();$('alertPrice').value='';renderAlerts();renderHome();toast('Alert saved. It only checks when you load newer data.');});
 function renderAlerts(){const root=$('alertsList');root.replaceChildren();if(!state.alerts.length){root.textContent='No alerts. Create a price threshold above.';return;}for(const a of [...state.alerts].reverse()){const row=document.createElement('div');row.className='log-item';const info=document.createElement('div');const title=document.createElement('strong');title.textContent=a.symbol+' · '+a.direction+' '+nicePrice(a.price);const sub=document.createElement('small');sub.textContent=a.triggered?'Triggered on a data update':'Armed · evaluates on new data';info.append(title,sub);const btn=document.createElement('button');btn.className='btn danger tiny';btn.textContent='Delete';btn.addEventListener('click',()=>{state.alerts=state.alerts.filter(x=>x.id!==a.id);save();renderAlerts();renderHome();});row.append(info,btn);root.append(row);}}
@@ -358,6 +386,37 @@ async function fetchCoinbaseHistory(symbol){
     source:'Coinbase Exchange · public daily OHLCV (NOT executable price)',savedAt:new Date().toISOString(),bars:bars.slice(-290)});
  verifyDatasetAndSave(d);return d;
 }
+async function fetchKrakenHistory(symbol){
+ const krakenPair={'BTC/USD':'XBTUSD','ETH/USD':'ETHUSD','SOL/USD':'SOLUSD'}[symbol];
+ if(!krakenPair)throw Error('Kraken backup supports BTC, ETH and SOL against USD.');
+ const data=await requestJSON('https://api.kraken.com/0/public/OHLC?'+new URLSearchParams({pair:krakenPair,interval:'1440'}));
+ if(!data||!Array.isArray(data.error)||data.error.length)throw Error('Kraken error: '+String(data?.error?.[0]||'invalid data'));
+ const key=Object.keys(data.result||{}).find(x=>x!=='last'&&Array.isArray(data.result[x]));
+ if(!key)throw Error('Kraken returned no OHLC candles.');
+ const unique=new Map();
+ for(const row of data.result[key]){
+  if(!Array.isArray(row)||row.length<7)continue;
+  const ts=Number(row[0]);if(!Number.isFinite(ts)||ts<=0)continue;
+  const date=new Date(ts*1000).toISOString().slice(0,10);
+  // Kraken explicitly includes a still-open candle. Exclude today in UTC.
+  if(date>=utcToday())continue;
+  const o=Number(row[1]),h=Number(row[2]),l=Number(row[3]),c=Number(row[4]),v=Number(row[6]);
+  if(!(o>0&&h>=Math.max(o,c)&&l<=Math.min(o,c)&&l>0&&c>0&&Number.isFinite(v)&&v>=0))continue;
+  unique.set(date,{date,open:o,high:h,low:l,close:c,volume:v});
+ }
+ const bars=[...unique.values()].sort((a,b)=>a.date.localeCompare(b.date));
+ if(bars.length<60)throw Error('Kraken returned fewer than 60 completed daily OHLC candles.');
+ const d=validateDataset({symbol,market:'Crypto',interval:'1day',origin:'crypto',
+  source:'Kraken Spot · public daily OHLCV backup (NOT executable)',savedAt:new Date().toISOString(),bars:bars.slice(-290)});
+ verifyDatasetAndSave(d);return d;
+}
+async function fetchCryptoWithBackup(symbol){
+ try{return await fetchCoinbaseHistory(symbol);}
+ catch(first){
+  try{return await fetchKrakenHistory(symbol);}
+  catch(second){throw Error('Coinbase: '+first.message+' | Kraken backup: '+second.message);}
+ }
+}
 $('fetchFX').addEventListener('click',async()=>{
  const btn=$('fetchFX');btn.disabled=true;
  try{const symbol=$('dataAsset').value;updatePublicStatus('Requesting public daily FX reference for '+symbol+'…');
@@ -367,7 +426,7 @@ $('fetchFX').addEventListener('click',async()=>{
 $('fetchCoinbase').addEventListener('click',async()=>{
  const btn=$('fetchCoinbase');btn.disabled=true;
  try{const symbol=$('dataAsset').value;updatePublicStatus('Requesting Coinbase public daily crypto history for '+symbol+'…');
-   const d=await fetchCoinbaseHistory(symbol);updatePublicStatus('Saved '+d.bars.length+' Coinbase observations for '+symbol+'. Latest '+d.bars.at(-1).date+' (may be incomplete). Not a live fill.');}
+   const d=await fetchCryptoWithBackup(symbol);updatePublicStatus('Saved '+d.bars.length+' completed observations for '+symbol+' from '+d.source+'. Latest '+d.bars.at(-1).date+'. Not a live fill.');}
  catch(e){updatePublicStatus('Coinbase fetch failed: '+e.message,true);}finally{btn.disabled=false;}
 });
 $('refreshPublic').addEventListener('click',async()=>{
@@ -376,7 +435,7 @@ $('refreshPublic').addEventListener('click',async()=>{
  try{
   for(const symbol of ['EUR/USD','GBP/USD','USD/ZAR','BTC/USD','ETH/USD','SOL/USD']){
    updatePublicStatus('Public refresh ('+(ok.length+bad.length+1)+'/6): '+symbol);
-   try{await (symbol.includes('BTC')||symbol.includes('ETH')||symbol.includes('SOL')?fetchCoinbaseHistory(symbol):fetchFrankfurter(symbol));ok.push(symbol);}
+   try{await (symbol.includes('BTC')||symbol.includes('ETH')||symbol.includes('SOL')?fetchCryptoWithBackup(symbol):fetchFrankfurter(symbol));ok.push(symbol);}
    catch(e){bad.push(symbol+' ('+e.message+')');}
    await new Promise(resolve=>setTimeout(resolve,320));
   }
@@ -542,6 +601,29 @@ renderAnalysis=function(){
  msg.className='notice '+(q.kind==='reference'?'good':'warn');
 };
 function guideMessage(msg,error=false){const el=$('guideStatus');el.textContent=msg;el.className='notice '+(error?'warn':'good');}
+async function connectionDoctor(){
+ const btn=$('doctorBtn'),el=$('doctorStatus');
+ btn.disabled=true;
+ const online=navigator.onLine!==false,environment=window.ChaloryxAndroid?'Android APK':'Web browser';
+ const checks=[];
+ const probes=[
+  {name:'Frankfurter FX reference',url:'https://api.frankfurter.dev/v2/rate/eur/usd',validate:j=>j?.base?.toUpperCase()==='EUR'&&j?.quote?.toUpperCase()==='USD'&&Number(j.rate)>0},
+  {name:'Coinbase Exchange crypto candles',url:'https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=86400',validate:j=>Array.isArray(j)&&j.length>0&&Array.isArray(j[0])&&j[0].length>=5},
+  {name:'Kraken crypto backup',url:'https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval=1440',validate:j=>Array.isArray(j.error)&&j.error.length===0&&Object.keys(j.result||{}).some(k=>k!=='last'&&Array.isArray(j.result[k]))}
+ ];
+ for(const p of probes){
+  el.textContent=environment+' · Phone online flag: '+(online?'YES':'NO')+' · Checking '+p.name+'…';
+  try{const started=performance.now(),res=await requestJSON(p.url);
+   if(!p.validate(res))throw Error('Unexpected data structure');
+   checks.push({name:p.name,ok:true,ms:Math.round(performance.now()-started)});
+  }catch(err){checks.push({name:p.name,ok:false,reason:err.message});}
+ }
+ const ok=checks.filter(x=>x.ok).length,lines=checks.map(c=>(c.ok?'✓ ':'✕ ')+c.name+(c.ok?' ('+c.ms+' ms)':' — '+c.reason));
+ el.textContent=environment+' · Internet flag: '+(online?'YES':'NO')+' · '+ok+'/'+checks.length+' verified public endpoints. '+lines.join(' | ')+(ok?' · Try ① Load available public data.':' · Saved offline data is still usable.');
+ el.className='notice '+(ok===3?'good':ok?'warn':'bad');btn.disabled=false;
+ return checks;
+}
+$('doctorBtn').addEventListener('click',()=>{connectionDoctor().catch(e=>{ $('doctorStatus').textContent=e.message;$('doctorBtn').disabled=false; });});
 $('easyLoad').addEventListener('click',()=>{
  go('markets');
  $('refreshPublic').click();
@@ -599,7 +681,7 @@ $('runDiagnostics').addEventListener('click',()=>{
  toast(v.failed.length?'Some checks failed; do not rely on the calculations.':'Passed '+v.passed+' calculation checks. Market outcomes remain uncertain.',v.failed.length>0);
 });
 // Test-only public surface for independent automated browser verification. It cannot submit real orders.
-window.CHALORYX_DIAGNOSTICS=Object.freeze({run:runMathDiagnostics,quality:datasetQuality,math:Object.freeze({SMA,EMA,RSI,MACD,Bollinger,ATR}),validateDataset,parseImport,backtest});
+window.CHALORYX_DIAGNOSTICS=Object.freeze({run:runMathDiagnostics,quality:datasetQuality,math:Object.freeze({SMA,EMA,RSI,MACD,Bollinger,ATR}),validateDataset,parseImport,backtest,fetchFrankfurter,fetchCoinbaseHistory,fetchKrakenHistory,fetchCryptoWithBackup,connectionDoctor});
 const previousRenderAll=renderAll;
 renderAll=function(){previousRenderAll();const count=Object.values(state.datasets).filter(d=>datasetQuality(d).kind==='reference').length;
  $('guideStatus').textContent=count?'✓ '+count+' recent public historical datasets are saved. Use ② Inspect a signal.':'① Load dated public historical data first; no market prices are invented.';
