@@ -1,17 +1,16 @@
-# CHALORYX Market Lab — Android application
+# CHALORYX Market Lab 3.0 — Android private-test build
 
-This is an installable Android WebView application project built from the verified CHALORYX Market Lab 2.0 offline-first HTML interface. Package ID: `com.chaloryx.marketlab`.
+The Android package `com.chaloryx.marketlab.v3` installs *alongside* the verified 2.1 app, so the original debug build and its local data are not replaced. Back up the workspace in 2.1 and import the JSON backup into 3.0.
 
-## Build
-GitHub Actions workflow: `.github/workflows/build-chaloryx-android.yml` (at repository root).
-Debug APK output: `chaloryx-android/app/build/outputs/apk/debug/app-debug.apk`.
+## Verified functionality to check
+- Offline charts, technical indicators, deterministic backtests, risk sizing and local paper trading.
+- Public historical data fetch: Frankfurter ECB daily FX reference rates (EUR/USD, GBP/USD, USD/ZAR) and Coinbase Exchange public daily OHLCV candles for BTC, ETH, SOL. Manual internet fetch only; APIs and Android network behavior are subject to real-device confirmation.
+- Optional Twelve Data with your *own read-only key* for stocks/metals/other symbols, or manual OHLC CSV import; do not enter broker credentials or trading secrets.
+- Prospective **forward signal audit** with immutable recorded decision metadata, 5/10 completed-bar horizon, outcome ledger, CSV export and baseline comparison.
+- Historical retrospective rule audit for qualitative context; overlapping samples and tiny sample sizes are explicitly marked.
+- CSV and JSON backups stored under Android Downloads/CHALORYX; the Android runtime has an Android-only export bridge.
 
-## Features
-- Market research, imported OHLC data, technical indicators, backtests and paper-trading portfolio.
-- CSV/JSON imports through Android's system file picker.
-- Native CSV/JSON exports to Downloads/CHALORYX.
-- Custom app icon, local workspace storage and optional HTTP(S) market-data fetches.
-
-## Limits
-No live order execution, broker login, or production account integrations. This is a debug APK for private testing, not a signed Play Store release. Do not enter broker passwords or secret keys.
-Export a backup from the earlier browser version and import it into the APK; separate app origins do not share localStorage.
+## Build and privacy
+GitHub Actions: `.github/workflows/build-chaloryx-android.yml`. Output is a debug APK, NOT a production/Play Store release.
+No brokerage account connection, real-money execution, push alert service or background scheduler. Refresh only when app is open and user taps Fetch.
+Avoid proprietary real-time quote claims. Reference exchange rates and exchange history are not guaranteed actionable broker bid/ask quotes.
