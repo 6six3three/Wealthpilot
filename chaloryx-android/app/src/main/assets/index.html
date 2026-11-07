@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#09151e">
 <meta name="description" content="CHALORYX Market Lab: offline-first multi-market research, market-data imports, technical scans, backtests, paper trading and risk controls.">
-<title>CHALORYX • Market Lab 3.0</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://api.frankfurter.dev https://api.exchange.coinbase.com https://api.twelvedata.com https://min-api.cryptocompare.com">
+<title>CHALORYX • Market Lab 4.0</title>
 <style>
 :root{color-scheme:dark;--bg:#071119;--surface:#101f2b;--surface2:#132838;--border:#2a4652;--text:#eaf7f7;--muted:#9ab5c0;--mint:#64e5c0;--cyan:#8edaf7;--amber:#ffd08d;--red:#ff8898;--violet:#c3acff;--radius:19px;--shadow:0 18px 40px #0003}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:radial-gradient(ellipse 65% 450px at 88% -4%,#16455480,transparent 85%),radial-gradient(ellipse 90% 640px at -30% 20%,#0c434444,transparent 80%),var(--bg);min-height:100vh}
@@ -21,19 +22,27 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
 
 @media(max-width:390px){.bottom button{font-size:8px;padding:5px 1px}.bottom button b{font-size:15px}}
+
+@media(max-width:680px){.bottom{grid-template-columns:repeat(5,minmax(0,1fr))}.more-menu:not([hidden]){position:fixed;z-index:12;display:grid;gap:9px;bottom:77px;right:10px;width:min(290px,calc(100vw - 20px));background:#102735;border:1px solid #4b7179;border-radius:18px;padding:13px;box-shadow:0 15px 44px #000a}.more-menu button{text-align:left}.hero-actions>*{min-width:46%;flex:1}.guided .card{padding:14px}}
+.more-menu[hidden]{display:none!important}.guided .notice{margin-top:10px}.hero .btn.ghost{color:#e9d9ff}
+
 </style>
 </head>
 <body>
 <div class="shell">
-<header class="masthead"><div class="crest" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none"><path d="M5 25 13 9l5 8 5-7 8 15" stroke="#07323a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 29h24" stroke="#07323a" stroke-width="3" stroke-linecap="round"/></svg></div><div class="brand"><h1>CHALORYX</h1><p>Market Lab / research engine 3.0</p></div><div class="header-right"><div class="live-dot" id="headStatus">● DATA-DRIVEN · NOT LIVE</div><div class="clock" id="clock">Local workspace</div></div></header>
+<header class="masthead"><div class="crest" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none"><path d="M5 25 13 9l5 8 5-7 8 15" stroke="#07323a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 29h24" stroke="#07323a" stroke-width="3" stroke-linecap="round"/></svg></div><div class="brand"><h1>CHALORYX</h1><p>Market Lab / clarity engine 4.0</p></div><div class="header-right"><div class="live-dot" id="headStatus">● DATA-DRIVEN · NOT LIVE</div><div class="clock" id="clock">Local workspace</div></div></header>
 <div class="disclaimer"><b>RESEARCH + PAPER TRADING ONLY.</b> No money is deposited, no real orders are submitted, and signals are not guarantees. Prices can be delayed, stale or imported. Check source/date before acting. Real brokerage execution, secure servers, compliance and live-data licensing require a separate deployment.</div>
-<nav class="tabs" aria-label="Main navigation" id="topnav"><button class="active" data-tab="home">◆ Command</button><button data-tab="markets">▦ Markets & data</button><button data-tab="analyze">⌁ Intelligence</button><button data-tab="test">↗ Strategy lab</button><button data-tab="paper">◎ Paper desk</button><button data-tab="settings">⚙ Control room</button></nav>
+<nav class="tabs" aria-label="Main navigation" id="topnav"><button class="active" data-tab="home">◆ Command</button><button data-tab="markets">▦ Markets & data</button><button data-tab="analyze">⌁ Intelligence</button><button data-tab="test">↗ Strategy lab</button><button data-tab="paper">◎ Paper desk</button><button data-tab="audit">◈ Evidence</button><button data-tab="settings">⚙ Control room</button></nav>
 <main>
 <section id="home" class="pane active">
-<div class="hero"><div class="eyebrow">Independent research platform · Zambia built</div><h2>One command centre.<br>Every major market.</h2><p>Build a verifiable market dataset, interpret technical conditions, stress-test trading rules, and manage virtual positions. Your workspace and tools keep working offline after data is saved.</p><div class="hero-actions"><button class="btn" data-goto="markets">Connect market data →</button><button class="btn alt" data-goto="analyze">Open intelligence →</button></div></div>
+<div class="hero"><div class="eyebrow">Independent research platform · Zambia built</div><h2>Understand markets.<br>Never guess what data means.</h2><p>Follow three clear steps: load dated prices, examine a transparent rule-based signal, and practice without risking money. Your research workspace remains usable offline after prices are saved. Market forecasts are never 100% certain.</p><div class="hero-actions"><button class="btn" id="easyLoad">① Load available public data</button><button class="btn alt" id="easyScan">② Inspect a signal</button><button class="btn ghost" id="easyPaper">③ Practice virtually</button></div></div>
+<div class="grid guided" style="margin-top:14px">
+ <div class="card span2"><h3>Three-step guided mode</h3><div class="step"><b>①</b> Load data — no account, no API key for the supported FX and crypto reference series.</div><div class="step"><b>②</b> Check the source and date; BULLISH / BEARISH means a rule condition, <b>NOT</b> a guaranteed trade.</div><div class="step"><b>③</b> Practice using virtual funds. If a feed is unavailable, your saved research still works.</div><div class="notice warn" id="guideStatus" role="status">Start with step ①. Stock and gold histories still need authorized provider access or an imported CSV.</div></div>
+ <div class="card span2"><h3>Truth and reliability</h3><div class="statusline"><span class="chip warn">NO 100% WIN CLAIMS</span><span class="chip green">NO REAL MONEY</span></div><p>CHALORYX shows source dates and evidence. It never invents missing prices or advertises a guaranteed prediction rate. A successful code test does <b>not</b> prove trading profitability.</p><div class="notice" id="quickHealth" role="status">Device diagnostics have not run yet.</div><button class="btn alt fullwidth" id="runDiagnostics" style="margin-top:10px">Run offline calculation checks</button></div>
+</div>
 <div class="section"><h2>Mission control</h2><small id="overviewStamp">Updated on your device</small></div>
 <div class="grid"><div class="card"><span class="kicker">Data-ready assets</span><div class="big" id="kData">0 / 0</div><span class="small">Saved historic candles</span></div><div class="card"><span class="kicker">Virtual equity</span><div class="big" id="kEquity">$10,000</div><span class="small">Paper account · USD</span></div><div class="card"><span class="kicker">Open positions</span><div class="big" id="kPositions">0</div><span class="small">No leverage</span></div><div class="card"><span class="kicker">Armed alerts</span><div class="big" id="kAlerts">0</div><span class="small">Checks only when data updates</span></div></div>
-<div class="section"><h2>Cross-market board</h2><small>Latest SAVED close, not a live ticker</small></div><div class="grid" id="marketTiles"></div>
+<div class="section"><h2>Cross-market board</h2><small>Latest SAVED close · never a live ticker</small></div><div class="grid" id="marketTiles"></div>
 <div class="section"><h2>Operational status</h2></div><div class="grid"><div class="card span2"><h3>Data integrity</h3><div class="notice" id="integrity">No datasets installed. You can import real historical prices, or fetch available public/provider records.</div><p>Any asset without an approved source shows <b>—</b>, not a fabricated quote. Each price carries a source and observation date.</p><button class="btn alt" data-goto="markets">Manage datasets</button></div><div class="card span2"><h3>Safety controls</h3><div class="statusline"><span class="chip green">Read-only analysis</span><span class="chip green">No broker credentials</span><span class="chip warn">Paper fills only</span></div><p>Risk is not removed by algorithms. The platform does not estimate a statistically valid win probability unless a repeatable test supports it.</p><button class="btn alt" data-goto="paper">Open risk desk</button></div></div>
 </section>
 <section id="markets" class="pane">
@@ -45,8 +54,8 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 <label for="rawImport">Or paste historical prices / OHLC CSV</label><textarea id="rawImport" spellcheck="false" placeholder="date,open,high,low,close,volume\n2026-01-01,100,103,98,102,15000\n...\n\nOr one close price per line (at least 60)."></textarea>
 <div class="row"><button class="btn" id="importBtn">Validate & save data</button><button class="btn alt" id="sampleBtn">Install SYNTHETIC test data</button></div><p class="tip">Minimum 60 rows. Maximum 2,500 rows per instrument. Strictly ascending dates. OHLC is validated. Data stays on this phone/browser until you export or clear it. Synthetic data is clearly marked.</p>
 
-<hr><h3>3.0 public reference connectors · no key</h3>
-<p><b>FX:</b> ECB central-bank daily reference rates via Frankfurter, not tradeable forex bid/ask prices. <b>Crypto:</b> Coinbase Exchange public daily OHLCV; recent daily candles may be incomplete. Tap only when connected.</p>
+<hr><h3>4.0 no-key reference data · no key</h3>
+<p><b>FX:</b> Central-bank daily reference rates via Frankfurter v2, not tradeable forex bid/ask prices. <b>Crypto:</b> Coinbase Exchange public daily OHLCV; recent daily candles may be incomplete. Tap only when connected.</p>
 <div class="row"><button class="btn alt" id="fetchFX">Fetch selected FX reference</button><button class="btn alt" id="fetchCoinbase">Fetch selected crypto</button></div>
 <button class="btn ghost fullwidth" id="refreshPublic" style="margin-top:10px">Refresh public FX + crypto board (6 requests)</button>
 <div class="notice warn" id="publicStatus" style="margin-top:10px">Offline mode: saved datasets remain available. No stock or gold exchange-grade live feed is included; those markets need an authorized data provider or CSV.</div>
@@ -59,7 +68,8 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 </div></section>
 <section id="analyze" class="pane">
 <div class="section"><h2>Technical intelligence</h2><small>Measured conditions, not guaranteed trades</small></div>
-<div class="grid"><div class="card span2"><h3>Asset analysis</h3><label for="scanAsset">Select instrument</label><select id="scanAsset"></select><div id="scanSource" class="statusline"><span class="chip warn">No dataset loaded</span></div><div class="chartbox"><svg id="priceChart" viewBox="0 0 640 230" preserveAspectRatio="none" role="img" aria-label="Historical price chart"><text x="320" y="115" text-anchor="middle" fill="#9ab5c0">Load data to analyse</text></svg><div class="legend"><span>Close</span><span class="ma">EMA 20</span><span class="line2">SMA 50</span></div></div><p class="tip" id="chartDate">Historical bars are displayed in chronological order.</p></div>
+<div class="grid"><div class="card span2"><h3>Asset analysis</h3><label for="scanAsset">Select instrument</label><select id="scanAsset"></select><div id="scanSource" class="statusline"><span class="chip warn">No dataset loaded</span></div>
+<div class="notice warn" id="analysisReliability" style="margin:9px 0" role="status">Source/date check required. Never interpret stale or synthetic candles as live prices.</div><div class="chartbox"><svg id="priceChart" viewBox="0 0 640 230" preserveAspectRatio="none" role="img" aria-label="Historical price chart"><text x="320" y="115" text-anchor="middle" fill="#9ab5c0">Load data to analyse</text></svg><div class="legend"><span>Close</span><span class="ma">EMA 20</span><span class="line2">SMA 50</span></div></div><p class="tip" id="chartDate">Historical bars are displayed in chronological order.</p></div>
 <div class="card span2"><h3>Indicator stack</h3><div class="metrics"><div class="metric"><span>Latest close</span><strong id="aLast">—</strong></div><div class="metric"><span>Period change</span><strong id="aChange">—</strong></div><div class="metric"><span>SMA 20 / 50</span><strong id="aSMA">—</strong></div><div class="metric"><span>EMA 12 / 26</span><strong id="aEMA">—</strong></div><div class="metric"><span>RSI 14</span><strong id="aRSI">—</strong></div><div class="metric"><span>MACD / signal</span><strong id="aMACD">—</strong></div><div class="metric"><span>Bollinger 20</span><strong id="aBB">—</strong></div><div class="metric"><span>ATR 14 (if OHLC)</span><strong id="aATR">—</strong></div></div></div>
 <div class="card full"><h3>Rule-based market reading</h3><div id="analysisReport" class="notice warn">No dataset. Import prices or fetch eligible market candles first.</div><p>Trend flag: positive when Close &gt; SMA20 &gt; SMA50 and RSI 50–70; negative when Close &lt; SMA20 &lt; SMA50 and RSI 30–50. Remaining conditions are neutral. The MACD, bands and ATR provide context, not a promise of an outcome.</p></div></div>
 </section>
@@ -74,7 +84,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 </section>
 
 <section id="audit" class="pane">
- <div class="section"><h2>Signal evidence lab</h2><small>CHALORYX 3.0 · accountable forecasts</small></div>
+ <div class="section"><h2>Signal evidence lab</h2><small>CHALORYX 4.0 · accountable forecasts</small></div>
  <div class="notice warn">Signals are <b>deterministic technical rule flags</b>, not AI probabilities or guaranteed bets. No real trades. A forward audit records a call from the most recent <b>completed daily bar</b>, then resolves it only after five newer completed daily bars are fetched. Synthetic or stale histories cannot create new prospective calls.</div>
  <div class="grid" style="margin-top:12px">
   <div class="card span2"><h3>Record a forward observation</h3>
@@ -102,14 +112,19 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 </section>
 <section id="settings" class="pane"><div class="section"><h2>Control room</h2><small>Local-first app management</small></div><div class="grid">
 <div class="card span2"><h3>Workspace backup</h3><p>Download your datasets, watchlist, price alerts, virtual positions and execution ledger in a single JSON backup. Import a backup after reinstalling or moving to another phone.</p><div class="row"><button class="btn" id="backupBtn">Export entire workspace</button><label for="restoreFile" style="margin:0;display:block;flex:1"><span class="btn alt" style="display:block;text-align:center;cursor:pointer">Import backup</span></label><input type="file" id="restoreFile" accept=".json,application/json" style="position:absolute;left:-9999px"></div><p class="tip">Backup files contain trading notes and records. Keep them private. API keys are never included.</p><hr><button class="btn danger fullwidth" id="factoryReset">Erase workspace from this browser</button><div id="storageStatus" class="notice" style="margin-top:10px">Browser storage is device-local, not secure cloud storage.</div></div>
-<div class="card span2"><h3>Go-live readiness</h3><div class="step"><b>✓</b> Cross-market watchlist and extensible symbols</div><div class="step"><b>✓</b> CSV import with sequence and OHLC validation</div><div class="step"><b>✓</b> Indicators and timestamped source provenance</div><div class="step"><b>✓</b> Causal, fee-aware deterministic strategy tests</div><div class="step"><b>✓</b> Persistent virtual portfolio, ledger and backup</div><div class="step"><b>○</b> Secure backend, authenticated accounts and provider licensing</div><div class="step"><b>○</b> Regulated broker integration / trade compliance / audited execution</div><div class="step"><b>○</b> Android package built from source; installation and device QA pending</div><p>This is an <b>offline-first research application</b> packaged inside an Android WebView. It is not a production brokerage service. Live feeds require separately verified provider access.</p></div>
+<div class="card span2"><h3>Readiness and limitations</h3><div class="step"><b>✓</b> Cross-market watchlist and extensible symbols</div><div class="step"><b>✓</b> CSV import with sequence and OHLC validation</div><div class="step"><b>✓</b> Indicators and timestamped source provenance</div><div class="step"><b>✓</b> Causal, fee-aware deterministic strategy tests</div><div class="step"><b>✓</b> Persistent virtual portfolio, ledger and backup</div><div class="step"><b>○</b> Secure backend, authenticated accounts and provider licensing</div><div class="step"><b>○</b> Regulated broker integration / trade compliance / audited execution</div><div class="step"><b>○</b> Android debug APK compiled from source; your device check is still required</div><p>This is an <b>offline-first research application</b> packaged inside an Android WebView. It is not a production brokerage service. Live feeds require separately verified provider access.</p></div>
 <div class="card span2"><h3>Five-step Android verification</h3><div class="step"><b>1.</b> Install the GitHub Actions debug APK, or open this HTML in Chrome.</div><div class="step"><b>2.</b> Markets → install clearly marked SYNTHETIC data; verify four market categories and the saved dataset badge.</div><div class="step"><b>3.</b> Intelligence → inspect RSI, EMA, MACD and candle chart, then open Strategy lab and run each strategy.</div><div class="step"><b>4.</b> Paper desk → buy one virtual unit, sell it, inspect P/L, then reload the page to verify persistence.</div><div class="step"><b>5.</b> Control room → export a backup. Check import/restore on a separate browser profile before you erase anything.</div></div>
 <div class="card span2"><h3>Architecture / limitations</h3><p><b>Offline:</b> All saved data, calculations, paper trades, charting, alerts on import and exports.</p><p><b>Online:</b> Optional market-data requests to Frankfurter, Coinbase, Twelve Data or CryptoCompare. Availability depends on internet, CORS and provider entitlements. Data may be delayed.</p><p><b>No broker integration:</b> This application cannot trade your real account. It does not contain an AI model or claim high-certainty predictions. For real trades a separate secure server, broker API, identity verification, cybersecurity review and applicable legal approvals are required.</p><p><b>Public API resources:</b> <a href="https://twelvedata.com/docs" target="_self" rel="noopener noreferrer">Twelve Data documentation</a>  · <a href="https://frankfurter.dev/" target="_blank" rel="noopener noreferrer">Frankfurter</a> · <a href="https://docs.cdp.coinbase.com/exchange/reference/exchangerestapi_getproductcandles" target="_blank" rel="noopener noreferrer">Coinbase Exchange</a> · <a href="https://min-api.cryptocompare.com/documentation" target="_self" rel="noopener noreferrer">CryptoCompare documentation</a>.</p><p>Company name used as a project brand; trademark, regulatory and commercial availability have not been verified.</p></div>
 </div></section>
 </main>
-<footer>CHALORYX Market Lab 3.0 · Offline-first research build · Android market intelligence · forward audit<br>Paper trading only · No real-money orders · No guaranteed outcomes · You control every data update</footer>
+<footer>CHALORYX Market Lab 4.0 · independently checked research build · Android market intelligence · forward audit<br>Paper trading only · No real-money orders · No guaranteed outcomes · You control every data update</footer>
 </div>
-<nav class="bottom" aria-label="Mobile navigation"><button class="active" data-tab="home"><b>◆</b>Home</button><button data-tab="markets"><b>▦</b>Markets</button><button data-tab="analyze"><b>⌁</b>Analyse</button><button data-tab="test"><b>↗</b>Test</button><button data-tab="paper"><b>◎</b>Paper</button><button data-tab="audit"><b>◈</b>Audit</button><button data-tab="settings"><b>⚙</b>Control</button></nav>
+<nav id="moreMenu" class="more-menu" aria-label="Additional screens" hidden>
+  <button class="btn alt" data-tab="test">↗ Strategy backtests</button>
+  <button class="btn alt" data-tab="audit">◈ Signal evidence</button>
+  <button class="btn alt" data-tab="settings">⚙ Backups and settings</button>
+</nav>
+<nav class="bottom" aria-label="Mobile navigation"><button class="active" data-tab="home"><b>◆</b>Home</button><button data-tab="markets"><b>▦</b>Prices</button><button data-tab="analyze"><b>⌁</b>Signals</button><button data-tab="paper"><b>◎</b>Practice</button><button id="moreToggle" type="button" aria-expanded="false" aria-controls="moreMenu"><b>☰</b>More</button></nav>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script>
 'use strict';
@@ -123,7 +138,7 @@ const pct=v=>Number.isFinite(v)?(v>=0?'+':'')+fmt(v,2)+'%':'—';
 const nicePrice=n=>Number.isFinite(n)?fmt(n,n<1?6:n<100?4:2):'—';
 const byId=(a,k)=>a.find(x=>x.id===k);
 const clone=o=>JSON.parse(JSON.stringify(o));
-const seedState=()=>({version:3,assets:clone(DEFAULT_ASSETS),datasets:{},alerts:[],forecasts:[],wallet:{cash:10000,positions:{},ledger:[]}});
+const seedState=()=>({version:4,assets:clone(DEFAULT_ASSETS),datasets:{},alerts:[],forecasts:[],wallet:{cash:10000,positions:{},ledger:[]}});
 let state=seedState(),filter='All',scanSymbol='EUR/USD',lastTest=null,timer=0;
 let keyCache=''; // optional API key intentionally not persisted
 function safeSymbol(s){const v=String(s||'').trim().toUpperCase();if(!/^[A-Z0-9][A-Z0-9/._-]{0,19}$/.test(v))throw Error('Symbol may contain only A–Z, 0–9, /, -, _, or period (max 20 chars).');return v;}
@@ -169,7 +184,13 @@ function load(){try{const raw=localStorage.getItem(APP_KEY);if(raw)state=validat
 function save(){try{localStorage.setItem(APP_KEY,JSON.stringify(state));return true;}catch(e){toast('Storage blocked/full. Export a backup! '+e.message,true);return false;}}
 function toast(m,error=false){const el=$('toast');el.textContent=m;el.className='toast visible'+(error?' error':'');clearTimeout(timer);timer=setTimeout(()=>el.classList.remove('visible'),5500);}
 function report(m,error=false){$('dataStatus').textContent=m;$('dataStatus').className='notice'+(error?' bad':'');toast(m,error);}
-function go(id){for(const pane of document.querySelectorAll('.pane'))pane.classList.toggle('active',pane.id===id);for(const btn of document.querySelectorAll('[data-tab]')){btn.classList.toggle('active',btn.dataset.tab===id);btn.setAttribute('aria-current',btn.dataset.tab===id?'page':'false');}scrollTo({top:0,behavior:'instant'});if(id==='analyze')renderAnalysis();if(id==='test')updateTestAsset();if(id==='paper')renderPaper();if(id==='settings')renderStorage();if(id==='audit')renderAudit();}
+function go(id){const pane=document.getElementById(id);if(!pane||!pane.classList.contains('pane'))return;
+ for(const p of document.querySelectorAll('.pane'))p.classList.toggle('active',p.id===id);
+ for(const btn of document.querySelectorAll('[data-tab]')){btn.classList.toggle('active',btn.dataset.tab===id);btn.setAttribute('aria-current',btn.dataset.tab===id?'page':'false');}
+ const more=$('moreMenu');if(more)more.hidden=true;
+ const toggle=$('moreToggle');if(toggle){toggle.setAttribute('aria-expanded','false');toggle.classList.toggle('active',['test','audit','settings'].includes(id));}
+ window.scrollTo({top:0,behavior:'instant'});
+ if(id==='analyze')renderAnalysis();if(id==='test')updateTestAsset();if(id==='paper')renderPaper();if(id==='settings')renderStorage();if(id==='audit')renderAudit();}
 document.addEventListener('click',e=>{const tab=e.target.closest('[data-tab]');if(tab){go(tab.dataset.tab);return;}const goto=e.target.closest('[data-goto]');if(goto){go(goto.dataset.goto);return;}});
 function choices(id,selected){const el=$(id);if(!el)return;const prev=selected||el.value;el.replaceChildren();for(const a of state.assets){const opt=document.createElement('option');opt.value=a.symbol;opt.textContent=a.symbol+' · '+a.market;el.append(opt);}if(state.assets.some(a=>a.symbol===prev))el.value=prev;}
 function syncChoices(){for(const id of ['dataAsset','alertAsset','scanAsset','btAsset','orderAsset','auditAsset'])choices(id,id==='scanAsset'?scanSymbol:undefined);}
@@ -301,16 +322,26 @@ const utcToday=()=>new Date().toISOString().slice(0,10);
 const isoDaysBack=n=>new Date(Date.now()-n*86400000).toISOString().slice(0,10);
 function updatePublicStatus(msg,error=false){const el=$('publicStatus');el.textContent=msg;el.className='notice '+(error?'bad':'good');}
 async function fetchFrankfurter(symbol){
- if(!['EUR/USD','GBP/USD','USD/ZAR'].includes(symbol))throw Error('No-key FX connector supports EUR/USD, GBP/USD, USD/ZAR.');
+ if(!['EUR/USD','GBP/USD','USD/ZAR'].includes(symbol))throw Error('No-key FX reference connector supports EUR/USD, GBP/USD and USD/ZAR.');
  const [base,quote]=symbol.split('/');
- const url='https://api.frankfurter.dev/v1/'+isoDaysBack(420)+'..?'+new URLSearchParams({base,symbols:quote});
+ const url='https://api.frankfurter.dev/v2/rates?'+new URLSearchParams({from:isoDaysBack(480),base,quotes:quote});
  const data=await requestJSON(url);
- if(!data||!data.rates||typeof data.rates!=='object')throw Error('Unexpected FX reference response.');
- const bars=Object.entries(data.rates).map(([date,rate])=>({date,open:null,high:null,low:null,close:Number(rate[quote]),volume:null}))
-   .filter(x=>x.close>0).sort((a,b)=>a.date.localeCompare(b.date));
- if(bars.length<60)throw Error('Reference series returned fewer than 60 days.');
+ if(!Array.isArray(data))throw Error('Unexpected FX reference response (v2 rows required).');
+ const byDate=new Map();
+ for(const row of data){
+  const date=String(row?.date||'');
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||date>=utcToday())continue;
+  const w=new Date(date+'T00:00:00Z').getUTCDay();
+  if(w===0||w===6)continue; // only completed weekday reference observations
+  if(String(row.base).toUpperCase()!==base||String(row.quote).toUpperCase()!==quote)continue;
+  const close=Number(row.rate);
+  if(!Number.isFinite(close)||close<=0)continue;
+  byDate.set(date,{date,open:null,high:null,low:null,close,volume:null});
+ }
+ const bars=[...byDate.values()].sort((a,b)=>a.date.localeCompare(b.date));
+ if(bars.length<60)throw Error('Reference series returned fewer than 60 completed weekday observations.');
  const d=validateDataset({symbol,market:'Forex',interval:'1day',origin:'provider',
-    source:'Frankfurter · ECB daily reference (NOT executable FX quote)',savedAt:new Date().toISOString(),bars:bars.slice(-350)});
+    source:'Frankfurter v2 · central-bank reference rates (NON-EXECUTABLE)',savedAt:new Date().toISOString(),bars:bars.slice(-350)});
  verifyDatasetAndSave(d);return d;
 }
 async function fetchCoinbaseHistory(symbol){
@@ -320,7 +351,7 @@ async function fetchCoinbaseHistory(symbol){
  if(!Array.isArray(raw))throw Error('Coinbase historical endpoint returned an error.');
  const bars=raw.map(v=>({date:new Date(Number(v[0])*1000).toISOString().slice(0,10),
     low:Number(v[1]),high:Number(v[2]),open:Number(v[3]),close:Number(v[4]),volume:Number(v[5])}))
-    .filter(x=>x.close>0&&x.open>0&&x.high>0&&x.low>0).sort((a,b)=>a.date.localeCompare(b.date))
+    .filter(x=>x.close>0&&x.open>0&&x.high>0&&x.low>0&&x.date<utcToday()).sort((a,b)=>a.date.localeCompare(b.date))
     .filter((b,i,a)=>i===0||b.date!==a[i-1].date);
  if(bars.length<60)throw Error('Coinbase provided fewer than 60 usable daily candles.');
  const d=validateDataset({symbol,market:'Crypto',interval:'1day',origin:'crypto',
@@ -330,7 +361,7 @@ async function fetchCoinbaseHistory(symbol){
 $('fetchFX').addEventListener('click',async()=>{
  const btn=$('fetchFX');btn.disabled=true;
  try{const symbol=$('dataAsset').value;updatePublicStatus('Requesting public daily FX reference for '+symbol+'…');
-   const d=await fetchFrankfurter(symbol);updatePublicStatus('Saved '+d.bars.length+' verified-format ECB reference observations for '+symbol+'. Latest reference date '+d.bars.at(-1).date+'. Not live tradable bids/asks.');}
+   const d=await fetchFrankfurter(symbol);updatePublicStatus('Saved '+d.bars.length+' published reference observations for '+symbol+'. Latest reference date '+d.bars.at(-1).date+'. Not live tradable bids/asks.');}
  catch(e){updatePublicStatus('FX fetch failed: '+e.message,true);}finally{btn.disabled=false;}
 });
 $('fetchCoinbase').addEventListener('click',async()=>{
@@ -487,7 +518,94 @@ $('clearAudit').addEventListener('click',()=>{
  if(!confirm('Delete ALL forward call records? Export a backup first. This cannot be undone.'))return;
  state.forecasts=[];save();renderAudit();toast('Audit records cleared.');
 });
-// ========= end CHALORYX 3.0 module =========
+// ========= end CHALORYX 4.0 module =========
+
+// ========= CHALORYX 4.0: beginner flow and correctness diagnostics =========
+function datasetQuality(ds){
+ if(!ds)return {kind:'missing',label:'NO DATA',note:'No recorded prices yet. Load reference history or import a trustworthy CSV.',days:NaN};
+ if(ds.origin==='synthetic')return {kind:'synthetic',label:'SIMULATION',note:'Synthetic prices only. These numbers cannot be used for market decisions.',days:NaN};
+ const i=lastCompleteIndex(ds);
+ if(i<0){return {kind:'unknown',label:'UNVERIFIED',note:'Undated or non-daily observations. Verify the source and timezone manually.',days:NaN};}
+ const age=(Date.now()-Date.parse(ds.bars[i].date+'T00:00:00Z'))/86400000;
+ if(!Number.isFinite(age)||age<0)return {kind:'unknown',label:'DATE ERROR',note:'Invalid or future observation date; refresh and verify.',days:age};
+ const maximum=ds.market==='Crypto'?3:ds.market==='Forex'?7:7;
+ if(age>maximum)return {kind:'stale',label:ds.origin==='csv'?'STALE · UNVERIFIED IMPORT':'STALE DATA',note:'Last completed bar is '+Math.floor(age)+' calendar days old. Refresh before interpreting the market.'+(ds.origin==='csv'?' The imported source was not independently authenticated.':''),days:age};
+ if(ds.origin==='csv')return {kind:'unverified',label:'IMPORT — CHECK SOURCE',note:'Recent timestamp, but independently verify the imported source and prices.',days:age};
+ return {kind:'reference',label:'DATED HISTORY',note:'Latest completed bar '+ds.bars[i].date+'. Historical reference data; never a tradable real-time quote.',days:age};
+}
+const coreRenderAnalysis=renderAnalysis;
+renderAnalysis=function(){
+ coreRenderAnalysis();
+ const ds=state.datasets[$('scanAsset').value],q=datasetQuality(ds);
+ const msg=$('analysisReliability');
+ msg.textContent=q.label+' — '+q.note+' Signals describe rule conditions, NOT confirmed future price movements.';
+ msg.className='notice '+(q.kind==='reference'?'good':'warn');
+};
+function guideMessage(msg,error=false){const el=$('guideStatus');el.textContent=msg;el.className='notice '+(error?'warn':'good');}
+$('easyLoad').addEventListener('click',()=>{
+ go('markets');
+ $('refreshPublic').click();
+});
+$('easyScan').addEventListener('click',()=>{
+ const symbols=['EUR/USD','GBP/USD','USD/ZAR','BTC/USD','ETH/USD','SOL/USD'];
+ const best=symbols.map(sym=>({sym,ds:state.datasets[sym]})).filter(v=>datasetQuality(v.ds).kind==='reference')
+   .sort((a,b)=>Date.parse(b.ds.bars.at(-1).date)-Date.parse(a.ds.bars.at(-1).date))[0];
+ if(!best){go('markets');report('No recent authenticated public-source dataset found. Fetch public history or import documented CSV, then inspect source/date.',true);return;}
+ scanSymbol=best.sym;go('analyze');$('scanAsset').value=best.sym;renderAnalysis();
+ toast('Displaying '+best.sym+' historical technical conditions, not a guaranteed forecast.');
+});
+$('easyPaper').addEventListener('click',()=>{go('paper');toast('Practice only: no real funds, orders or bank accounts are connected.');});
+$('moreToggle').addEventListener('click',()=>{const menu=$('moreMenu'),btn=$('moreToggle');menu.hidden=!menu.hidden;btn.setAttribute('aria-expanded',String(!menu.hidden));});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('moreMenu').hidden=true;$('moreToggle').setAttribute('aria-expanded','false');}});
+function approxEqual(a,b,eps=1e-9){return Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a-b)<=eps*Math.max(1,Math.abs(a),Math.abs(b));}
+function runMathDiagnostics(){
+ const records=[];
+ function check(label,fn){try{if(fn()!==true)throw Error('Expected result not met');records.push({label,passed:true});}
+  catch(err){records.push({label,passed:false,detail:err.message});}}
+ const values=Array.from({length:80},(_,i)=>i+1);
+ check('SMA of known sequence',()=>approxEqual(SMA(values,10).at(-1),75.5));
+ check('SMA undefined until full lookback',()=>!Number.isFinite(SMA(values,20)[18]));
+ check('EMA of constant values',()=>approxEqual(EMA(Array(60).fill(18),12).at(-1),18));
+ check('EMA first value requires enough bars',()=>!Number.isFinite(EMA(values,26)[24]));
+ check('RSI all upward closes',()=>approxEqual(RSI(values,14).at(-1),100));
+ check('RSI all downward closes',()=>approxEqual(RSI([...values].reverse(),14).at(-1),0));
+ check('RSI flat market is neutral 50',()=>approxEqual(RSI(Array(75).fill(100),14).at(-1),50));
+ check('MACD on flat prices',()=>approxEqual(MACD(Array(80).fill(100)).hist.at(-1),0));
+ check('Bollinger flat centre',()=>approxEqual(Bollinger(Array(35).fill(100)).mid.at(-1),100));
+ check('Bollinger flat upper/lower',()=>approxEqual(Bollinger(Array(35).fill(100)).high.at(-1),100)&&approxEqual(Bollinger(Array(35).fill(100)).low.at(-1),100));
+ check('ATR constant daily range',()=>approxEqual(ATR(Array.from({length:60},()=>({open:100,high:101,low:99,close:100}))),2));
+ check('Prospective WAIT for flat history',()=>directionAt(computedRule({bars:Array.from({length:70},(_,i)=>({close:100}))}),69)===0);
+ check('Prospective directional rule bullish',()=>directionAt({close:Array(52).fill(106),s20:Array(52).fill(103),s50:Array(52).fill(100),rsi:Array(52).fill(62)},51)===1);
+ check('Prospective directional rule bearish',()=>directionAt({close:Array(52).fill(95),s20:Array(52).fill(97),s50:Array(52).fill(100),rsi:Array(52).fill(43)},51)===-1);
+ check('Safe symbol rejects code injection',()=>{try{safeSymbol('<script>');return false;}catch{return true;}});
+ const dated=Array.from({length:65},(_,i)=>({date:new Date(Date.UTC(2025,0,i+1)).toISOString().slice(0,10),open:100,high:101,low:99,close:100,volume:1}));
+ check('OHLC validator accepts coherent candles',()=>validateDataset({symbol:'TEST/USD',market:'Crypto',interval:'1day',bars:dated}).bars.length===65);
+ check('OHLC validator rejects impossible highs',()=>{try{validateDataset({symbol:'TEST/USD',market:'Crypto',bars:dated.map((b,i)=>i===5?{...b,high:90}:b)});return false;}catch{return true;}});
+ check('OHLC validator rejects duplicate dates',()=>{try{validateDataset({symbol:'TEST/USD',market:'Crypto',bars:dated.map((b,i)=>i===5?{...b,date:dated[4].date}:b)});return false;}catch{return true;}});
+ check('OHLC validator rejects too-short histories',()=>{try{validateDataset({symbol:'TEST/USD',market:'Crypto',bars:dated.slice(0,59)});return false;}catch{return true;}});
+ check('Historical signal flat baseline never predicts direction',()=>retrospectiveScore({interval:'1day',bars:dated,origin:'csv'},5).signals===0);
+ check('Flat backtest equity preserved without entries',()=>approxEqual(backtest({symbol:'TEST/USD',source:'Known flat',origin:'csv',bars:dated},{capital:10000,cost:0.2,allocation:50,split:.7,strategy:'sma'}).final,10000));
+ check('Synthetic data correctly disallowed for forward calls',()=>Boolean(canRecordCall({symbol:'TEST/USD',interval:'1day',origin:'synthetic',bars:dated})));
+ check('Synthetic data quality explicit',()=>datasetQuality({origin:'synthetic',bars:dated}).kind==='synthetic');
+ check('No missing price gets fabricated',()=>!state.datasets['__missing__']);
+ return {total:records.length,passed:records.filter(x=>x.passed).length,failed:records.filter(x=>!x.passed),records};
+}
+$('runDiagnostics').addEventListener('click',()=>{
+ const v=runMathDiagnostics();
+ const el=$('quickHealth');
+ el.textContent=v.failed.length?('CALCULATION CHECK FAILED: '+v.passed+'/'+v.total+' passed. '+v.failed.map(x=>x.label+': '+x.detail).join(' · '))
+  :('Calculation self-checks passed: '+v.total+'/'+v.total+'. This confirms known fixtures only; NOT 100% market prediction accuracy.');
+ el.className='notice '+(v.failed.length?'bad':'good');
+ toast(v.failed.length?'Some checks failed; do not rely on the calculations.':'Passed '+v.passed+' calculation checks. Market outcomes remain uncertain.',v.failed.length>0);
+});
+// Test-only public surface for independent automated browser verification. It cannot submit real orders.
+window.CHALORYX_DIAGNOSTICS=Object.freeze({run:runMathDiagnostics,quality:datasetQuality,math:Object.freeze({SMA,EMA,RSI,MACD,Bollinger,ATR}),validateDataset,parseImport,backtest});
+const previousRenderAll=renderAll;
+renderAll=function(){previousRenderAll();const count=Object.values(state.datasets).filter(d=>datasetQuality(d).kind==='reference').length;
+ $('guideStatus').textContent=count?'✓ '+count+' recent public historical datasets are saved. Use ② Inspect a signal.':'① Load dated public historical data first; no market prices are invented.';
+ $('guideStatus').className='notice '+(count?'good':'warn');
+};
+// ========= end CHALORYX 4.0 module =========
 
 load();renderAll();
 })();

@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application android:allowBackup="false"
         android:usesCleartextTraffic="false"
-        android:label="CHALORYX Market Lab 3"
+        android:label="CHALORYX Market Lab 4"
         android:icon="@drawable/chaloryx_icon"
         android:roundIcon="@drawable/chaloryx_icon"
         android:theme="@android:style/Theme.Material.Light.NoActionBar"
