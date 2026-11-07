@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#09151e">
 <meta name="description" content="CHALORYX Market Lab: offline-first multi-market research, market-data imports, technical scans, backtests, paper trading and risk controls.">
-<title>CHALORYX • Market Lab 2.1</title>
+<title>CHALORYX • Market Lab 3.0</title>
 <style>
 :root{color-scheme:dark;--bg:#071119;--surface:#101f2b;--surface2:#132838;--border:#2a4652;--text:#eaf7f7;--muted:#9ab5c0;--mint:#64e5c0;--cyan:#8edaf7;--amber:#ffd08d;--red:#ff8898;--violet:#c3acff;--radius:19px;--shadow:0 18px 40px #0003}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:radial-gradient(ellipse 65% 450px at 88% -4%,#16455480,transparent 85%),radial-gradient(ellipse 90% 640px at -30% 20%,#0c434444,transparent 80%),var(--bg);min-height:100vh}
@@ -16,14 +16,16 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 .btn{background:var(--mint);color:#062c2e;border:1px solid transparent;border-radius:11px;font-weight:900;padding:12px 15px;font-size:12px;min-height:43px}.btn.alt{background:#1b3b48;color:var(--text);border-color:#356175}.btn.ghost{background:#141e2e;color:var(--violet);border-color:#584779}.btn.danger{background:#442932;color:#ffd5db;border-color:#945460}.btn.tiny{padding:7px 10px;min-height:34px;font-size:11px}.btn.fullwidth{width:100%}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.row.tight>*{flex:0 0 auto}.fieldgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 10px}.fieldgrid .wide{grid-column:1/-1}label{display:block;font-size:11px;color:#b9d8e1;font-weight:800;margin:13px 0 5px}input,select,textarea{width:100%;border-radius:11px;border:1px solid #44616e;background:#081823;color:var(--text);padding:11px;min-width:0}input[type=file]{font-size:11px;padding:8px}textarea{min-height:130px;resize:vertical;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}select{background-color:#0c2030}hr{border:0;border-top:1px solid var(--border);margin:16px 0}.notice{border-left:3px solid var(--cyan);border-radius:0 11px 11px 0;background:#143542a6;padding:11px 12px;line-height:1.55;font-size:12px}.notice.warn{border-left-color:var(--amber);background:#3a302553}.notice.good{border-left-color:var(--mint);background:#173b325c}.notice.bad{border-left-color:var(--red);background:#48293170}.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);width:min(560px,calc(100% - 24px));z-index:20;padding:13px 14px;border-radius:12px;border:1px solid #5a887e;background:#133d3f;box-shadow:0 15px 40px #000a;color:#e9fff7;font-size:12px;display:none}.toast.visible{display:block}.toast.error{background:#4b252f;border-color:#b66f7b}
 .list{display:flex;flex-direction:column;gap:9px}.asset{display:flex;align-items:center;gap:10px;padding:12px;background:#0d222e;border:1px solid #2d4a59;border-radius:13px;min-width:0}.asset .badge{height:37px;width:37px;border-radius:11px;display:grid;place-items:center;flex:0 0 auto;background:#1b4951;color:var(--mint);font-weight:900;font-size:13px}.asset .detail{flex:1;min-width:0}.asset .detail strong{display:block;font-size:13px}.asset .detail small{display:block;color:var(--muted);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.asset .quote{text-align:right;min-width:0}.asset .quote strong{font-size:13px;display:block}.asset .quote small{color:var(--muted);font-size:10px}.asset button.arrow{border:0;background:#244251;color:var(--mint);border-radius:10px;padding:6px 11px;font-weight:800}.filters{display:flex;gap:7px;overflow:auto;margin-bottom:10px}.filters button{background:#122835;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:7px 11px;font-size:11px;white-space:nowrap}.filters button.active{background:#264d54;border-color:var(--mint);color:var(--mint)}.chartbox{border:1px solid #2b4956;background:#061622;border-radius:13px;padding:10px;margin-top:10px;overflow:hidden}.chartbox svg{display:block;width:100%;height:210px}.chartbox .legend{display:flex;gap:14px;font-size:10px;color:var(--muted);margin:5px 5px 0}.legend span:before{content:'';display:inline-block;width:9px;height:9px;background:var(--mint);margin-right:5px;border-radius:2px}.legend .ma:before{background:var(--amber)}.legend .line2:before{background:var(--violet)}.chartbox svg text{font-family:system-ui,Arial,sans-serif}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:520px}.table th{font-size:10px;text-transform:uppercase;color:var(--muted);letter-spacing:.7px;text-align:left;padding:10px 8px;border-bottom:1px solid var(--border)}.table td{font-size:12px;padding:11px 8px;border-bottom:1px solid #2b465555;vertical-align:top}.table tr:last-child td{border-bottom:0}.table .wrap{max-width:220px;white-space:normal;overflow-wrap:anywhere}.statusline{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.tip{color:var(--muted);font-size:11px;line-height:1.6}.spacer{height:7px}.logs{display:flex;flex-direction:column;gap:8px}.log-item{border:1px solid var(--border);border-radius:12px;padding:10px 12px;background:#0c212b;display:flex;gap:10px;align-items:center;justify-content:space-between}.log-item strong{font-size:12px}.log-item small{display:block;color:var(--muted);font-size:10px}.log-item button{flex:0 0 auto}.step{padding:11px;border-radius:13px;border:1px solid #2e4a5a;background:#0d222e;margin-bottom:7px;color:#cddfe2;font-size:12px}.step b{color:var(--mint)}.bottom{display:none}footer{text-align:center;padding:29px 12px 10px;color:#8ba6b2;font-size:10px;line-height:1.7}.inline-link{border:0;background:transparent;color:var(--mint);padding:0;text-decoration:underline;cursor:pointer;font-weight:700}.offscreen{position:absolute;left:-9999px}
 @media(min-width:800px){.shell{padding:0 25px 70px}.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.span2{grid-column:span 2}.span3{grid-column:span 3}.chartbox svg{height:250px}.card{padding:19px}.hero{padding:28px 31px}}
-@media(max-width:680px){.card.span2,.card.span3{grid-column:1/-1}.tabs{display:none}.bottom{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));position:fixed;bottom:0;left:0;right:0;z-index:10;background:#0a1b28f5;backdrop-filter:blur(16px);border-top:1px solid #315262;padding:7px 4px calc(7px + env(safe-area-inset-bottom))}.bottom button{color:#95b4c1;background:none;border:0;border-radius:9px;min-width:0;padding:5px 2px;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:9px;gap:3px;font-weight:700}.bottom button b{font-size:18px;line-height:1.2}.bottom button.active{color:var(--mint);background:#244b4a85}.shell{padding-bottom:100px}.hero{padding:21px 17px}.hero h2{font-size:31px}.header-right .clock{display:none}.card{padding:13px}.crest{height:43px;width:43px;flex-basis:43px}.brand h1{font-size:18px}.big{font-size:23px}.asset{padding:10px}.asset .badge{height:33px;width:33px}.section{margin-top:17px}}
+@media(max-width:680px){.card.span2,.card.span3{grid-column:1/-1}.tabs{display:none}.bottom{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));position:fixed;bottom:0;left:0;right:0;z-index:10;background:#0a1b28f5;backdrop-filter:blur(16px);border-top:1px solid #315262;padding:7px 4px calc(7px + env(safe-area-inset-bottom))}.bottom button{color:#95b4c1;background:none;border:0;border-radius:9px;min-width:0;padding:5px 2px;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:9px;gap:3px;font-weight:700}.bottom button b{font-size:18px;line-height:1.2}.bottom button.active{color:var(--mint);background:#244b4a85}.shell{padding-bottom:100px}.hero{padding:21px 17px}.hero h2{font-size:31px}.header-right .clock{display:none}.card{padding:13px}.crest{height:43px;width:43px;flex-basis:43px}.brand h1{font-size:18px}.big{font-size:23px}.asset{padding:10px}.asset .badge{height:33px;width:33px}.section{margin-top:17px}}
 @media(max-width:390px){.fieldgrid{grid-template-columns:1fr}.fieldgrid .wide{grid-column:auto}.metrics{gap:6px}.metric{padding:8px}.bottom button{font-size:8px}.bottom button b{font-size:17px}.hero-actions>*{min-width:110px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+
+@media(max-width:390px){.bottom button{font-size:8px;padding:5px 1px}.bottom button b{font-size:15px}}
 </style>
 </head>
 <body>
 <div class="shell">
-<header class="masthead"><div class="crest" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none"><path d="M5 25 13 9l5 8 5-7 8 15" stroke="#07323a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 29h24" stroke="#07323a" stroke-width="3" stroke-linecap="round"/></svg></div><div class="brand"><h1>CHALORYX</h1><p>Market Lab / research engine 2.0</p></div><div class="header-right"><div class="live-dot" id="headStatus">● DATA-DRIVEN · NOT LIVE</div><div class="clock" id="clock">Local workspace</div></div></header>
+<header class="masthead"><div class="crest" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none"><path d="M5 25 13 9l5 8 5-7 8 15" stroke="#07323a" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 29h24" stroke="#07323a" stroke-width="3" stroke-linecap="round"/></svg></div><div class="brand"><h1>CHALORYX</h1><p>Market Lab / research engine 3.0</p></div><div class="header-right"><div class="live-dot" id="headStatus">● DATA-DRIVEN · NOT LIVE</div><div class="clock" id="clock">Local workspace</div></div></header>
 <div class="disclaimer"><b>RESEARCH + PAPER TRADING ONLY.</b> No money is deposited, no real orders are submitted, and signals are not guarantees. Prices can be delayed, stale or imported. Check source/date before acting. Real brokerage execution, secure servers, compliance and live-data licensing require a separate deployment.</div>
 <nav class="tabs" aria-label="Main navigation" id="topnav"><button class="active" data-tab="home">◆ Command</button><button data-tab="markets">▦ Markets & data</button><button data-tab="analyze">⌁ Intelligence</button><button data-tab="test">↗ Strategy lab</button><button data-tab="paper">◎ Paper desk</button><button data-tab="settings">⚙ Control room</button></nav>
 <main>
@@ -42,6 +44,12 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 <label for="fileImport">Upload CSV / TXT (oldest first)</label><input type="file" id="fileImport" accept=".csv,.txt,text/plain,text/csv"/>
 <label for="rawImport">Or paste historical prices / OHLC CSV</label><textarea id="rawImport" spellcheck="false" placeholder="date,open,high,low,close,volume\n2026-01-01,100,103,98,102,15000\n...\n\nOr one close price per line (at least 60)."></textarea>
 <div class="row"><button class="btn" id="importBtn">Validate & save data</button><button class="btn alt" id="sampleBtn">Install SYNTHETIC test data</button></div><p class="tip">Minimum 60 rows. Maximum 2,500 rows per instrument. Strictly ascending dates. OHLC is validated. Data stays on this phone/browser until you export or clear it. Synthetic data is clearly marked.</p>
+
+<hr><h3>3.0 public reference connectors · no key</h3>
+<p><b>FX:</b> ECB central-bank daily reference rates via Frankfurter, not tradeable forex bid/ask prices. <b>Crypto:</b> Coinbase Exchange public daily OHLCV; recent daily candles may be incomplete. Tap only when connected.</p>
+<div class="row"><button class="btn alt" id="fetchFX">Fetch selected FX reference</button><button class="btn alt" id="fetchCoinbase">Fetch selected crypto</button></div>
+<button class="btn ghost fullwidth" id="refreshPublic" style="margin-top:10px">Refresh public FX + crypto board (6 requests)</button>
+<div class="notice warn" id="publicStatus" style="margin-top:10px">Offline mode: saved datasets remain available. No stock or gold exchange-grade live feed is included; those markets need an authorized data provider or CSV.</div>
 <hr><h3>Optional online data connectors</h3><p>Internet and source access required. Requests happen only when you tap Fetch. Provider plan restrictions and API/CORS limitations can prevent access.</p>
 <label for="tdKey">Twelve Data API key (not saved)</label><input id="tdKey" type="password" autocomplete="off" autocapitalize="off" placeholder="Enter your own read-only market-data key"/><div class="row"><button class="btn alt" id="fetchTD">Fetch selected instrument</button><button class="btn ghost" id="toggleKey" type="button">Show / hide</button></div><p class="tip">Supports eligible forex, metals, crypto and stocks on your provider plan. Your key is sent to Twelve Data over HTTPS; as a browser integration it is visible to the provider and to someone with access to your device. For a publicly launched product, proxy secrets through a secure server instead.</p>
 <button class="btn alt fullwidth" id="fetchCrypto">Fetch public BTC / ETH / SOL candles</button><p class="tip">CryptoCompare public endpoint (availability/rate limits may change). Data is aggregated daily OHLCV, not an executable broker bid/ask quote. If blocked, use CSV.</p>
@@ -64,16 +72,44 @@ button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:man
 <div class="card span2"><h3>Execute a PAPER order</h3><div class="notice warn" id="paperPrice">Choose an asset with USD-denominated saved price data. These are not real orders.</div><div class="fieldgrid"><div><label for="orderAsset">Instrument</label><select id="orderAsset"></select></div><div><label for="orderSide">Side</label><select id="orderSide"><option value="BUY">Buy virtual</option><option value="SELL">Sell owned units</option></select></div><div><label for="orderUnits">Units</label><input type="number" id="orderUnits" min="0.00000001" step="any" inputmode="decimal" placeholder="1"></div><div><label for="orderFee">Simulated fee (%)</label><input type="number" id="orderFee" min="0" max="5" step="0.05" value="0.10" inputmode="decimal"></div></div><label for="orderNote">Trade reason</label><input id="orderNote" placeholder="Your plan, setup, invalidation..." maxlength="150"><button class="btn fullwidth" id="placeOrder" style="margin-top:12px">Record virtual fill</button><p class="tip">No margin, no borrowing and no unsupported non-USD quote conversion. Sells cannot exceed owned units. Data updates do not generate orders automatically.</p><hr><h3>Risk-sized trade calculator</h3><div class="fieldgrid"><div><label for="riskEquity">USD account capital</label><input id="riskEquity" type="number" min="1" value="1000" step="any"></div><div><label for="riskPct">Risk budget (%)</label><input id="riskPct" type="number" min="0.01" max="5" value="1" step="0.1"></div><div><label for="riskEntry">Entry price (USD/unit)</label><input id="riskEntry" type="number" step="any" placeholder="100"></div><div><label for="riskStop">Stop price (USD/unit)</label><input id="riskStop" type="number" step="any" placeholder="98"></div><div><label for="riskTarget">Target (optional)</label><input id="riskTarget" type="number" step="any" placeholder="104"></div><div><label for="riskSide">Direction</label><select id="riskSide"><option value="long">Long</option><option value="short">Short</option></select></div></div><button class="btn alt fullwidth" id="sizeBtn">Calculate size</button><div class="notice" style="margin-top:10px" id="sizeOutput">Risk calculations assume a USD account and a USD-denominated quote, not forex pip/lot conversions.</div></div>
 <div class="card full"><h3>Virtual execution ledger</h3><div class="table-wrap"><table class="table"><thead><tr><th>Date (local)</th><th>Order</th><th>Quantity</th><th>Fill / fee</th><th>Realised P/L</th><th>Reason</th></tr></thead><tbody id="paperLedger"></tbody></table></div><div class="row" style="margin-top:12px"><button class="btn alt" id="exportLedger">Export ledger CSV</button><button class="btn danger" id="resetPaper">Reset $10,000 account</button></div></div></div>
 </section>
+
+<section id="audit" class="pane">
+ <div class="section"><h2>Signal evidence lab</h2><small>CHALORYX 3.0 · accountable forecasts</small></div>
+ <div class="notice warn">Signals are <b>deterministic technical rule flags</b>, not AI probabilities or guaranteed bets. No real trades. A forward audit records a call from the most recent <b>completed daily bar</b>, then resolves it only after five newer completed daily bars are fetched. Synthetic or stale histories cannot create new prospective calls.</div>
+ <div class="grid" style="margin-top:12px">
+  <div class="card span2"><h3>Record a forward observation</h3>
+   <label for="auditAsset">Instrument</label><select id="auditAsset"></select>
+   <label for="auditHorizon">Evaluation horizon</label><select id="auditHorizon"><option value="5">5 completed daily bars</option><option value="10">10 completed daily bars</option></select>
+   <button class="btn fullwidth" id="recordForecast" style="margin-top:12px">Record timestamped directional call</button>
+   <div class="notice" id="auditSignal" role="status" style="margin-top:12px">Choose a dated dataset. Calls are registered only at the last completed daily bar.</div>
+   <p class="tip">Rule v1: bullish if Close &gt; SMA20 &gt; SMA50 and RSI14 50–70; bearish if Close &lt; SMA20 &lt; SMA50 and RSI14 30–50. Otherwise WAIT (no directional call). Outcomes compare later closes; these are not simulated order fills.</p>
+  </div>
+  <div class="card span2"><h3>Prospective audit</h3>
+   <div class="metrics"><div class="metric"><span>Resolved calls</span><strong id="auditResolved">0</strong></div><div class="metric"><span>Directional hit rate</span><strong id="auditHit">—</strong></div><div class="metric"><span>Always-up baseline</span><strong id="auditBase">—</strong></div><div class="metric"><span>Open calls</span><strong id="auditPending">0</strong></div></div>
+   <div id="auditQuality" class="notice warn" style="margin-top:12px">No forward observations yet.</div>
+   <p class="tip">Small samples and overlapping holding windows make percentages unreliable. A call matching a subsequent direction is not proof of a profitable strategy, particularly before transaction costs.</p>
+  </div>
+  <div class="card span2"><h3>Historical causal score</h3><div class="metrics"><div class="metric"><span>Historical observations</span><strong id="retroSignals">—</strong></div><div class="metric"><span>Directional hit rate</span><strong id="retroHit">—</strong></div><div class="metric"><span>Always-up baseline</span><strong id="retroBase">—</strong></div><div class="metric"><span>Signal coverage</span><strong id="retroCoverage">—</strong></div></div>
+   <div id="retroNotes" class="notice" style="margin-top:12px">Select a dataset to measure the historical rules.</div>
+   <p class="tip">This is a retrospective diagnostic, not a true prospective test. Signals use historical bars available at the time; outcomes use later bars. Windows overlap, market regime shifts occur, and the data may be revised.</p>
+  </div>
+  <div class="card span2"><h3>Data provenance</h3><div id="auditProvenance" class="notice">No instrument selected.</div><hr><h3>Actions</h3>
+   <div class="row"><button class="btn alt" id="exportAudit">Export audit CSV</button><button class="btn danger" id="clearAudit">Clear audit log</button></div>
+   <p class="tip">The audit lives in local device storage and is included in full workspace backups. Export before uninstalling. No cloud reporting.</p>
+  </div>
+  <div class="card full"><h3>Verifiable call ledger</h3><div class="table-wrap"><table class="table"><thead><tr><th>Recorded UTC</th><th>Symbol / bar</th><th>Call</th><th>Horizon</th><th>Observed outcome</th><th>Status</th></tr></thead><tbody id="auditLedger"><tr><td colspan="6">No calls recorded.</td></tr></tbody></table></div></div>
+ </div>
+</section>
 <section id="settings" class="pane"><div class="section"><h2>Control room</h2><small>Local-first app management</small></div><div class="grid">
 <div class="card span2"><h3>Workspace backup</h3><p>Download your datasets, watchlist, price alerts, virtual positions and execution ledger in a single JSON backup. Import a backup after reinstalling or moving to another phone.</p><div class="row"><button class="btn" id="backupBtn">Export entire workspace</button><label for="restoreFile" style="margin:0;display:block;flex:1"><span class="btn alt" style="display:block;text-align:center;cursor:pointer">Import backup</span></label><input type="file" id="restoreFile" accept=".json,application/json" style="position:absolute;left:-9999px"></div><p class="tip">Backup files contain trading notes and records. Keep them private. API keys are never included.</p><hr><button class="btn danger fullwidth" id="factoryReset">Erase workspace from this browser</button><div id="storageStatus" class="notice" style="margin-top:10px">Browser storage is device-local, not secure cloud storage.</div></div>
-<div class="card span2"><h3>Go-live readiness</h3><div class="step"><b>✓</b> Cross-market watchlist and extensible symbols</div><div class="step"><b>✓</b> CSV import with sequence and OHLC validation</div><div class="step"><b>✓</b> Indicators and timestamped source provenance</div><div class="step"><b>✓</b> Causal, fee-aware deterministic strategy tests</div><div class="step"><b>✓</b> Persistent virtual portfolio, ledger and backup</div><div class="step"><b>○</b> Secure backend, authenticated accounts and provider licensing</div><div class="step"><b>○</b> Regulated broker integration / trade compliance / audited execution</div><div class="step"><b>○</b> Android APK packaging, accessibility and device QA</div><p>The present deliverable is a complete functional <b>offline-first research application</b> in a single HTML file, not a production brokerage service.</p></div>
-<div class="card span2"><h3>Five-step Android verification</h3><div class="step"><b>1.</b> Save this HTML file. Open with Chrome or Acode preview.</div><div class="step"><b>2.</b> Markets → install clearly marked SYNTHETIC data; verify four market categories and the saved dataset badge.</div><div class="step"><b>3.</b> Intelligence → inspect RSI, EMA, MACD and candle chart, then open Strategy lab and run each strategy.</div><div class="step"><b>4.</b> Paper desk → buy one virtual unit, sell it, inspect P/L, then reload the page to verify persistence.</div><div class="step"><b>5.</b> Control room → export a backup. Check import/restore on a separate browser profile before you erase anything.</div></div>
-<div class="card span2"><h3>Architecture / limitations</h3><p><b>Offline:</b> All saved data, calculations, paper trades, charting, alerts on import and exports.</p><p><b>Online:</b> Optional market-data requests to Twelve Data or CryptoCompare. Availability depends on internet, CORS and provider entitlements. Data may be delayed.</p><p><b>No broker integration:</b> This application cannot trade your real account. It does not contain an AI model or claim high-certainty predictions. For real trades a separate secure server, broker API, identity verification, cybersecurity review and applicable legal approvals are required.</p><p><b>Public API resources:</b> <a href="https://twelvedata.com/docs" target="_blank" rel="noopener noreferrer">Twelve Data documentation</a> · <a href="https://min-api.cryptocompare.com/documentation" target="_blank" rel="noopener noreferrer">CryptoCompare documentation</a>.</p><p>Company name used as a project brand; trademark, regulatory and commercial availability have not been verified.</p></div>
+<div class="card span2"><h3>Go-live readiness</h3><div class="step"><b>✓</b> Cross-market watchlist and extensible symbols</div><div class="step"><b>✓</b> CSV import with sequence and OHLC validation</div><div class="step"><b>✓</b> Indicators and timestamped source provenance</div><div class="step"><b>✓</b> Causal, fee-aware deterministic strategy tests</div><div class="step"><b>✓</b> Persistent virtual portfolio, ledger and backup</div><div class="step"><b>○</b> Secure backend, authenticated accounts and provider licensing</div><div class="step"><b>○</b> Regulated broker integration / trade compliance / audited execution</div><div class="step"><b>○</b> Android package built from source; installation and device QA pending</div><p>This is an <b>offline-first research application</b> packaged inside an Android WebView. It is not a production brokerage service. Live feeds require separately verified provider access.</p></div>
+<div class="card span2"><h3>Five-step Android verification</h3><div class="step"><b>1.</b> Install the GitHub Actions debug APK, or open this HTML in Chrome.</div><div class="step"><b>2.</b> Markets → install clearly marked SYNTHETIC data; verify four market categories and the saved dataset badge.</div><div class="step"><b>3.</b> Intelligence → inspect RSI, EMA, MACD and candle chart, then open Strategy lab and run each strategy.</div><div class="step"><b>4.</b> Paper desk → buy one virtual unit, sell it, inspect P/L, then reload the page to verify persistence.</div><div class="step"><b>5.</b> Control room → export a backup. Check import/restore on a separate browser profile before you erase anything.</div></div>
+<div class="card span2"><h3>Architecture / limitations</h3><p><b>Offline:</b> All saved data, calculations, paper trades, charting, alerts on import and exports.</p><p><b>Online:</b> Optional market-data requests to Frankfurter, Coinbase, Twelve Data or CryptoCompare. Availability depends on internet, CORS and provider entitlements. Data may be delayed.</p><p><b>No broker integration:</b> This application cannot trade your real account. It does not contain an AI model or claim high-certainty predictions. For real trades a separate secure server, broker API, identity verification, cybersecurity review and applicable legal approvals are required.</p><p><b>Public API resources:</b> <a href="https://twelvedata.com/docs" target="_self" rel="noopener noreferrer">Twelve Data documentation</a>  · <a href="https://frankfurter.dev/" target="_blank" rel="noopener noreferrer">Frankfurter</a> · <a href="https://docs.cdp.coinbase.com/exchange/reference/exchangerestapi_getproductcandles" target="_blank" rel="noopener noreferrer">Coinbase Exchange</a> · <a href="https://min-api.cryptocompare.com/documentation" target="_self" rel="noopener noreferrer">CryptoCompare documentation</a>.</p><p>Company name used as a project brand; trademark, regulatory and commercial availability have not been verified.</p></div>
 </div></section>
 </main>
-<footer>CHALORYX Market Lab 2.1 · Offline-first research build · Prepared for Android app review<br>Paper trading only · No real-money orders · No guaranteed outcomes · You control every data update</footer>
+<footer>CHALORYX Market Lab 3.0 · Offline-first research build · Android market intelligence · forward audit<br>Paper trading only · No real-money orders · No guaranteed outcomes · You control every data update</footer>
 </div>
-<nav class="bottom" aria-label="Mobile navigation"><button class="active" data-tab="home"><b>◆</b>Home</button><button data-tab="markets"><b>▦</b>Markets</button><button data-tab="analyze"><b>⌁</b>Analyse</button><button data-tab="test"><b>↗</b>Test</button><button data-tab="paper"><b>◎</b>Paper</button><button data-tab="settings"><b>⚙</b>Control</button></nav>
+<nav class="bottom" aria-label="Mobile navigation"><button class="active" data-tab="home"><b>◆</b>Home</button><button data-tab="markets"><b>▦</b>Markets</button><button data-tab="analyze"><b>⌁</b>Analyse</button><button data-tab="test"><b>↗</b>Test</button><button data-tab="paper"><b>◎</b>Paper</button><button data-tab="audit"><b>◈</b>Audit</button><button data-tab="settings"><b>⚙</b>Control</button></nav>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script>
 'use strict';
@@ -87,7 +123,7 @@ const pct=v=>Number.isFinite(v)?(v>=0?'+':'')+fmt(v,2)+'%':'—';
 const nicePrice=n=>Number.isFinite(n)?fmt(n,n<1?6:n<100?4:2):'—';
 const byId=(a,k)=>a.find(x=>x.id===k);
 const clone=o=>JSON.parse(JSON.stringify(o));
-const seedState=()=>({version:2,assets:clone(DEFAULT_ASSETS),datasets:{},alerts:[],wallet:{cash:10000,positions:{},ledger:[]}});
+const seedState=()=>({version:3,assets:clone(DEFAULT_ASSETS),datasets:{},alerts:[],forecasts:[],wallet:{cash:10000,positions:{},ledger:[]}});
 let state=seedState(),filter='All',scanSymbol='EUR/USD',lastTest=null,timer=0;
 let keyCache=''; // optional API key intentionally not persisted
 function safeSymbol(s){const v=String(s||'').trim().toUpperCase();if(!/^[A-Z0-9][A-Z0-9/._-]{0,19}$/.test(v))throw Error('Symbol may contain only A–Z, 0–9, /, -, _, or period (max 20 chars).');return v;}
@@ -116,16 +152,27 @@ function validateState(raw){if(!raw||typeof raw!=='object')throw Error('Invalid 
  let w=raw.wallet||{},cash=Number(w.cash);if(!Number.isFinite(cash)||cash<0||cash>1e12)throw Error('Invalid wallet cash.');incoming.wallet.cash=cash;
  incoming.wallet.positions={};if(w.positions&&typeof w.positions==='object'){for(const [s,pos] of Object.entries(w.positions)){if(!seen.has(s))throw Error('Invalid portfolio symbol.');const qty=Number(pos.qty),avg=Number(pos.avg);if(!(qty>=0&&avg>=0&&Number.isFinite(qty)&&Number.isFinite(avg)))throw Error('Invalid position.');if(qty>0)incoming.wallet.positions[s]={qty,avg};}}
  if(!Array.isArray(w.ledger)||w.ledger.length>5000)throw Error('Invalid ledger.');incoming.wallet.ledger=w.ledger.map(t=>({date:String(t.date||'').slice(0,40),symbol:safeSymbol(t.symbol),side:t.side==='SELL'?'SELL':'BUY',qty:Number(t.qty),price:Number(t.price),fee:Number(t.fee),realized:Number(t.realized||0),note:String(t.note||'').slice(0,150)}));
- if(incoming.wallet.ledger.some(t=>!seen.has(t.symbol)||!Number.isFinite(t.qty)||t.qty<=0||!Number.isFinite(t.price)||t.price<=0||!Number.isFinite(t.fee)||t.fee<0||!Number.isFinite(t.realized)))throw Error('Invalid ledger entries.');return incoming;
+ if(incoming.wallet.ledger.some(t=>!seen.has(t.symbol)||!Number.isFinite(t.qty)||t.qty<=0||!Number.isFinite(t.price)||t.price<=0||!Number.isFinite(t.fee)||t.fee<0||!Number.isFinite(t.realized)))throw Error('Invalid ledger entries.');
+  if(Array.isArray(raw.forecasts)){
+    incoming.forecasts=raw.forecasts.slice(-500).map(f=>({
+      id:String(f.id||'').slice(0,60),created:String(f.created||'').slice(0,40),symbol:safeSymbol(f.symbol),
+      barDate:String(f.barDate||'').slice(0,35),interval:'1day',horizon:Number(f.horizon),
+      direction:Number(f.direction),entry:Number(f.entry),rules:'trend-v1',
+      status:f.status==='resolved'?'resolved':f.status==='invalid'?'invalid':'pending',
+      exitDate:String(f.exitDate||'').slice(0,35),exit:Number(f.exit||0),observed:Number(f.observed||0),
+      success:f.success===true,baseUp:f.baseUp===true,source:String(f.source||'').slice(0,110)
+    })).filter(f=>seen.has(f.symbol)&&/^\d{4}-\d{2}-\d{2}$/.test(f.barDate)&&[5,10].includes(f.horizon)&&[1,-1].includes(f.direction)&&Number.isFinite(f.entry)&&f.entry>0&&(f.status!=='resolved'||(Number.isFinite(f.exit)&&f.exit>0)));
+  }
+  return incoming;
 }
 function load(){try{const raw=localStorage.getItem(APP_KEY);if(raw)state=validateState(JSON.parse(raw));}catch(e){state=seedState();toast('Saved workspace could not be loaded: '+e.message+'. Original data was not erased. Export a copy before resetting.',true);}}
 function save(){try{localStorage.setItem(APP_KEY,JSON.stringify(state));return true;}catch(e){toast('Storage blocked/full. Export a backup! '+e.message,true);return false;}}
 function toast(m,error=false){const el=$('toast');el.textContent=m;el.className='toast visible'+(error?' error':'');clearTimeout(timer);timer=setTimeout(()=>el.classList.remove('visible'),5500);}
 function report(m,error=false){$('dataStatus').textContent=m;$('dataStatus').className='notice'+(error?' bad':'');toast(m,error);}
-function go(id){for(const pane of document.querySelectorAll('.pane'))pane.classList.toggle('active',pane.id===id);for(const btn of document.querySelectorAll('[data-tab]')){btn.classList.toggle('active',btn.dataset.tab===id);btn.setAttribute('aria-current',btn.dataset.tab===id?'page':'false');}scrollTo({top:0,behavior:'instant'});if(id==='analyze')renderAnalysis();if(id==='test')updateTestAsset();if(id==='paper')renderPaper();if(id==='settings')renderStorage();}
+function go(id){for(const pane of document.querySelectorAll('.pane'))pane.classList.toggle('active',pane.id===id);for(const btn of document.querySelectorAll('[data-tab]')){btn.classList.toggle('active',btn.dataset.tab===id);btn.setAttribute('aria-current',btn.dataset.tab===id?'page':'false');}scrollTo({top:0,behavior:'instant'});if(id==='analyze')renderAnalysis();if(id==='test')updateTestAsset();if(id==='paper')renderPaper();if(id==='settings')renderStorage();if(id==='audit')renderAudit();}
 document.addEventListener('click',e=>{const tab=e.target.closest('[data-tab]');if(tab){go(tab.dataset.tab);return;}const goto=e.target.closest('[data-goto]');if(goto){go(goto.dataset.goto);return;}});
 function choices(id,selected){const el=$(id);if(!el)return;const prev=selected||el.value;el.replaceChildren();for(const a of state.assets){const opt=document.createElement('option');opt.value=a.symbol;opt.textContent=a.symbol+' · '+a.market;el.append(opt);}if(state.assets.some(a=>a.symbol===prev))el.value=prev;}
-function syncChoices(){for(const id of ['dataAsset','alertAsset','scanAsset','btAsset','orderAsset'])choices(id,id==='scanAsset'?scanSymbol:undefined);}
+function syncChoices(){for(const id of ['dataAsset','alertAsset','scanAsset','btAsset','orderAsset','auditAsset'])choices(id,id==='scanAsset'?scanSymbol:undefined);}
 function latest(symbol){const d=state.datasets[symbol];return d?d.bars.at(-1):null;}
 function ageLabel(ds){if(!ds)return 'No saved prices';const last=ds.bars.at(-1);return (last.date||'undated history')+' · '+ds.source;}
 function isSynthetic(ds){return ds&&ds.origin==='synthetic';}
@@ -144,7 +191,7 @@ function renderAssets(){const root=$('assetList');root.replaceChildren();for(con
  const quote=document.createElement('div');quote.className='quote';const v=document.createElement('strong');v.textContent=bar?nicePrice(bar.close):'—';const p=document.createElement('small');p.textContent=Number.isFinite(pc)?pct(pc):'not live';quote.append(v,p);const b=document.createElement('button');b.className='arrow';b.textContent='›';b.setAttribute('aria-label','Manage '+a.symbol);b.addEventListener('click',()=>{$('dataAsset').value=a.symbol;toast('Data panel set to '+a.symbol+'. Import or fetch to update.');});row.append(badge,info,quote,b);root.append(row);
  }if(!root.children.length){root.textContent='No assets in this category.';}}
 for(const b of document.querySelectorAll('[data-filter]'))b.addEventListener('click',()=>{filter=b.dataset.filter;for(const x of document.querySelectorAll('[data-filter]'))x.classList.toggle('active',x===b);renderAssets();});
-function renderAll(){syncChoices();renderHome();renderAssets();renderAlerts();renderAnalysis();renderPaper();renderStorage();}
+function renderAll(){syncChoices();renderHome();renderAssets();renderAlerts();renderAnalysis();renderPaper();renderStorage();renderAudit();}
 // Readable CSV parser with quoted-field handling.
 function parseCSVLine(line,delim){let fields=[],buf='',quoted=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'){if(quoted&&line[i+1]==='"'){buf+='"';i++;}else quoted=!quoted;}else if(c===delim&&!quoted){fields.push(buf.trim());buf='';}else buf+=c;}if(quoted)throw Error('Unclosed CSV quote.');fields.push(buf.trim());return fields;}
 function parseImport(raw,symbol,market,interval,format){let lines=String(raw).replace(/^\uFEFF/,'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if(!lines.length)throw Error('Empty import.');if(lines.length>2503)throw Error('Too many rows. Use at most 2,500.');
@@ -160,7 +207,7 @@ function parseImport(raw,symbol,market,interval,format){let lines=String(raw).re
  }
  return validateDataset({symbol,market,interval,source:'User-imported file/text · source unverified',origin:'csv',savedAt:new Date().toISOString(),bars});
 }
-function verifyDatasetAndSave(ds){const old=state.datasets[ds.symbol];state.datasets[ds.symbol]=validateDataset(ds);if(!save()){state.datasets[ds.symbol]=old;throw Error('Could not persist the data. Free browser storage or export a backup.');}checkAlerts(ds.symbol,old,state.datasets[ds.symbol]);renderAll();}
+function verifyDatasetAndSave(ds){const old=state.datasets[ds.symbol];state.datasets[ds.symbol]=validateDataset(ds);if(!save()){state.datasets[ds.symbol]=old;throw Error('Could not persist the data. Free browser storage or export a backup.');}checkAlerts(ds.symbol,old,state.datasets[ds.symbol]);resolveForwardAudits(state.datasets[ds.symbol]);renderAll();}
 $('fileImport').addEventListener('change',async e=>{try{const f=e.target.files?.[0];if(!f)return;if(f.size>2000000)throw Error('File exceeds 2 MB.');$('rawImport').value=await f.text();report('File read: '+f.name+'. Tap Validate & save data.');}catch(err){report(err.message,true);}});
 $('importBtn').addEventListener('click',()=>{try{const a=state.assets.find(a=>a.symbol===$('dataAsset').value);if(!a)throw Error('Select an instrument.');const d=parseImport($('rawImport').value,a.symbol,a.market,$('interval').value,$('dataOrigin').value);verifyDatasetAndSave(d);report('Saved '+d.bars.length+' '+d.interval+' candles for '+a.symbol+'. '+(d.bars.at(-1).date||'Dates not supplied')+'.');}catch(err){report('Import failed: '+err.message,true);}});
 $('sampleBtn').addEventListener('click',()=>{try{const a=state.assets.find(a=>a.symbol===$('dataAsset').value);if(!a)throw Error('Select an instrument.');let start=({Forex:1.1,Metals:1800,Crypto:95000,Stocks:140})[a.market];if(a.symbol==='USD/ZAR')start=17;if(a.symbol==='ETH/USD')start=2400;if(a.symbol==='SOL/USD')start=190;let bars=[],prev=start;
@@ -218,15 +265,13 @@ $('backtestBtn').addEventListener('click',()=>{try{const ds=state.datasets[$('bt
  }catch(e){toast('Backtest: '+e.message,true);}});
 function download(text,name,type){
  const blob=new Blob([text],{type});
- if(window.ChaloryxAndroid && typeof window.ChaloryxAndroid.saveFile==='function'){
-  const reader=new FileReader();
-  reader.onload=()=>{try{const b64=String(reader.result||'').split(',')[1];if(!b64)throw new Error('File encoding failed');window.ChaloryxAndroid.saveFile(name,type,b64);}catch(err){toast('Android export failed: '+err.message,true);}};
-  reader.onerror=()=>toast('Android export failed: file could not be prepared.',true);
-  reader.readAsDataURL(blob); return;
+ if(window.ChaloryxAndroid&&typeof window.ChaloryxAndroid.saveFile==='function'){
+   const r=new FileReader();
+   r.onload=()=>{try{const b64=String(r.result||'').split(',')[1];if(!b64)throw Error('File encoding failed');window.ChaloryxAndroid.saveFile(name,type,b64);}catch(err){toast('Android export failed: '+err.message,true);}};
+   r.onerror=()=>toast('Could not prepare file. Please retry.',true);
+   r.readAsDataURL(blob);return;
  }
- const url=URL.createObjectURL(blob),a=document.createElement('a');
- a.href=url; a.download=name; document.body.append(a); a.click(); a.remove();
- setTimeout(()=>URL.revokeObjectURL(url),2000);
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
 }
 function csvEscape(s){const v=String(s??'');return /[,\n\r"]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
 $('exportBacktest').addEventListener('click',()=>{if(!lastTest)return toast('Run a backtest first.',true);let lines=['bar,date,equity_usd'];lastTest.curve.forEach((v,i)=>lines.push([i+51,lastTest.days[i],v].map(csvEscape).join(',')));download(lines.join('\r\n'),'CHALORYX_Backtest_'+lastTest.symbol.replaceAll('/','-')+'.csv','text/csv');});
@@ -249,7 +294,201 @@ $('sizeBtn').addEventListener('click',()=>{const e=Number($('riskEquity').value)
 $('backupBtn').addEventListener('click',()=>{download(JSON.stringify({product:'CHALORYX Market Lab',exportedAt:new Date().toISOString(),workspace:state},null,2),'CHALORYX_Workspace_Backup_'+new Date().toISOString().slice(0,10)+'.json','application/json');toast('Backup downloaded. Keep it private and test restoration.');});
 $('restoreFile').addEventListener('change',async e=>{try{const f=e.target.files?.[0];if(!f)return;if(f.size>8000000)throw Error('Backup exceeds 8 MB.');const data=JSON.parse(await f.text());if(data.product!=='CHALORYX Market Lab'||!data.workspace)throw Error('Not a CHALORYX workspace backup.');const restored=validateState(data.workspace);if(!confirm('Replace all current datasets, wallet and alerts with this validated backup?'))return;const old=state;state=restored;if(!save()){state=old;throw Error('Could not save restored workspace.');}scanSymbol=state.assets[0].symbol;lastTest=null;renderAll();toast('Workspace restored successfully.');}catch(err){toast('Restore cancelled/failed: '+err.message,true);}finally{e.target.value='';}});
 $('factoryReset').addEventListener('click',()=>{if(!confirm('PERMANENTLY ERASE all CHALORYX workspace data in this browser? Export a backup first.'))return;if(!confirm('Final check: erase saved market histories, virtual positions, ledger and alerts?'))return;try{localStorage.removeItem(APP_KEY);state=seedState();scanSymbol='EUR/USD';lastTest=null;renderAll();toast('Local workspace cleared.');}catch(e){toast('Could not clear storage: '+e.message,true);}});
-function renderStorage(){const count=Object.keys(state.datasets).length;const bytes=new Blob([JSON.stringify(state)]).size;$('storageStatus').textContent='Stored '+count+' dataset(s), '+state.alerts.length+' price alerts, '+state.wallet.ledger.length+' virtual fills. Estimated JSON size: '+fmt(bytes/1024,1)+' KB. No cloud sync or credential storage.';}
+function renderStorage(){const count=Object.keys(state.datasets).length;const bytes=new Blob([JSON.stringify(state)]).size;$('storageStatus').textContent='Stored '+count+' dataset(s), '+state.alerts.length+' price alerts, '+state.wallet.ledger.length+' virtual fills, '+(state.forecasts||[]).length+' audit calls. Estimated JSON size: '+fmt(bytes/1024,1)+' KB. No cloud sync or credential storage.';}
+
+// ========= CHALORYX 3.0: public daily reference connectors and evidence audit =========
+const utcToday=()=>new Date().toISOString().slice(0,10);
+const isoDaysBack=n=>new Date(Date.now()-n*86400000).toISOString().slice(0,10);
+function updatePublicStatus(msg,error=false){const el=$('publicStatus');el.textContent=msg;el.className='notice '+(error?'bad':'good');}
+async function fetchFrankfurter(symbol){
+ if(!['EUR/USD','GBP/USD','USD/ZAR'].includes(symbol))throw Error('No-key FX connector supports EUR/USD, GBP/USD, USD/ZAR.');
+ const [base,quote]=symbol.split('/');
+ const url='https://api.frankfurter.dev/v1/'+isoDaysBack(420)+'..?'+new URLSearchParams({base,symbols:quote});
+ const data=await requestJSON(url);
+ if(!data||!data.rates||typeof data.rates!=='object')throw Error('Unexpected FX reference response.');
+ const bars=Object.entries(data.rates).map(([date,rate])=>({date,open:null,high:null,low:null,close:Number(rate[quote]),volume:null}))
+   .filter(x=>x.close>0).sort((a,b)=>a.date.localeCompare(b.date));
+ if(bars.length<60)throw Error('Reference series returned fewer than 60 days.');
+ const d=validateDataset({symbol,market:'Forex',interval:'1day',origin:'provider',
+    source:'Frankfurter · ECB daily reference (NOT executable FX quote)',savedAt:new Date().toISOString(),bars:bars.slice(-350)});
+ verifyDatasetAndSave(d);return d;
+}
+async function fetchCoinbaseHistory(symbol){
+ if(!['BTC/USD','ETH/USD','SOL/USD'].includes(symbol))throw Error('Coinbase supports BTC/USD, ETH/USD and SOL/USD in this connector.');
+ const p=symbol.replace('/','-');
+ const raw=await requestJSON('https://api.exchange.coinbase.com/products/'+encodeURIComponent(p)+'/candles?granularity=86400');
+ if(!Array.isArray(raw))throw Error('Coinbase historical endpoint returned an error.');
+ const bars=raw.map(v=>({date:new Date(Number(v[0])*1000).toISOString().slice(0,10),
+    low:Number(v[1]),high:Number(v[2]),open:Number(v[3]),close:Number(v[4]),volume:Number(v[5])}))
+    .filter(x=>x.close>0&&x.open>0&&x.high>0&&x.low>0).sort((a,b)=>a.date.localeCompare(b.date))
+    .filter((b,i,a)=>i===0||b.date!==a[i-1].date);
+ if(bars.length<60)throw Error('Coinbase provided fewer than 60 usable daily candles.');
+ const d=validateDataset({symbol,market:'Crypto',interval:'1day',origin:'crypto',
+    source:'Coinbase Exchange · public daily OHLCV (NOT executable price)',savedAt:new Date().toISOString(),bars:bars.slice(-290)});
+ verifyDatasetAndSave(d);return d;
+}
+$('fetchFX').addEventListener('click',async()=>{
+ const btn=$('fetchFX');btn.disabled=true;
+ try{const symbol=$('dataAsset').value;updatePublicStatus('Requesting public daily FX reference for '+symbol+'…');
+   const d=await fetchFrankfurter(symbol);updatePublicStatus('Saved '+d.bars.length+' verified-format ECB reference observations for '+symbol+'. Latest reference date '+d.bars.at(-1).date+'. Not live tradable bids/asks.');}
+ catch(e){updatePublicStatus('FX fetch failed: '+e.message,true);}finally{btn.disabled=false;}
+});
+$('fetchCoinbase').addEventListener('click',async()=>{
+ const btn=$('fetchCoinbase');btn.disabled=true;
+ try{const symbol=$('dataAsset').value;updatePublicStatus('Requesting Coinbase public daily crypto history for '+symbol+'…');
+   const d=await fetchCoinbaseHistory(symbol);updatePublicStatus('Saved '+d.bars.length+' Coinbase observations for '+symbol+'. Latest '+d.bars.at(-1).date+' (may be incomplete). Not a live fill.');}
+ catch(e){updatePublicStatus('Coinbase fetch failed: '+e.message,true);}finally{btn.disabled=false;}
+});
+$('refreshPublic').addEventListener('click',async()=>{
+ const btn=$('refreshPublic');btn.disabled=true;
+ const ok=[],bad=[];
+ try{
+  for(const symbol of ['EUR/USD','GBP/USD','USD/ZAR','BTC/USD','ETH/USD','SOL/USD']){
+   updatePublicStatus('Public refresh ('+(ok.length+bad.length+1)+'/6): '+symbol);
+   try{await (symbol.includes('BTC')||symbol.includes('ETH')||symbol.includes('SOL')?fetchCoinbaseHistory(symbol):fetchFrankfurter(symbol));ok.push(symbol);}
+   catch(e){bad.push(symbol+' ('+e.message+')');}
+   await new Promise(resolve=>setTimeout(resolve,320));
+  }
+  updatePublicStatus('Public refresh completed: '+ok.length+'/6 instruments updated. '+(bad.length?'Unavailable: '+bad.join('; '):'All public endpoints responded.')+' Historical/reference data only; check dates. ',bad.length>0);
+ }finally{btn.disabled=false;}
+});
+// lastCompleteIndex deliberately rejects a potentially incomplete current UTC daily candle.
+function lastCompleteIndex(ds){
+ if(!ds||ds.interval!=='1day'||!ds.bars?.length)return -1;
+ let i=ds.bars.length-1;
+ while(i>=0 && (!/^\d{4}-\d{2}-\d{2}$/.test(ds.bars[i].date)||ds.bars[i].date>=utcToday()))i--;
+ return i;
+}
+function computedRule(ds){
+ const close=ds.bars.map(x=>x.close);
+ return {close,s20:SMA(close,20),s50:SMA(close,50),rsi:RSI(close)};
+}
+function directionAt(calc,i){
+ const {close,s20,s50,rsi}=calc;
+ if(i<51||!Number.isFinite(rsi[i]))return 0;
+ if(close[i]>s20[i]&&s20[i]>s50[i]&&rsi[i]>=50&&rsi[i]<=70)return 1;
+ if(close[i]<s20[i]&&s20[i]<s50[i]&&rsi[i]>=30&&rsi[i]<=50)return -1;
+ return 0;
+}
+function dataProvenance(ds){
+ if(!ds)return 'No data. Fetch public reference history, enter a read-only data-provider key, or import CSV.';
+ const latest=ds.bars.at(-1),lastIndex=lastCompleteIndex(ds);
+ let age=lastIndex>=0?Math.round((Date.now()-Date.parse(ds.bars[lastIndex].date))/86400000):NaN;
+ return ds.symbol+' | '+ds.bars.length+' '+ds.interval+' observations | '+ds.source+' | saved '+new Date(ds.savedAt).toLocaleString()+' | newest saved bar '+(latest.date||'unknown')+(Number.isFinite(age)?' | last completed bar '+age+' calendar days ago':' | data is undated/incomplete')+'. Not exchange-grade executable quotes.';
+}
+function canRecordCall(ds){
+ if(!ds)return 'Load a historical dataset first.';
+ if(ds.interval!=='1day')return 'Prospective audit supports dated DAILY data only.';
+ if(ds.origin==='synthetic')return 'Synthetic datasets cannot generate forward evidence.';
+ if(!['provider','crypto'].includes(ds.origin))return 'Forward calls require an online-provider dataset, not unverified CSV.';
+ const i=lastCompleteIndex(ds);
+ if(i<51)return 'Need at least 52 completed daily observations.';
+ const age=(Date.now()-Date.parse(ds.bars[i].date))/86400000;
+ if(age>10 || age<0)return 'Last completed observation is stale or dated in the future; refresh first.';
+ return '';
+}
+function prospectiveResults(){
+ const settled=(state.forecasts||[]).filter(f=>f.status==='resolved');
+ const hits=settled.filter(f=>f.success).length,up=settled.filter(f=>f.baseUp).length;
+ return {settled,hits,up,pending:(state.forecasts||[]).filter(f=>f.status==='pending').length};
+}
+function resolveForwardAudits(ds){
+ if(!state.forecasts?.length||!ds||ds.interval!=='1day'||ds.origin==='synthetic')return;
+ const last=lastCompleteIndex(ds);
+ if(last<0)return;
+ let changed=false;
+ for(const f of state.forecasts){
+  if(f.symbol!==ds.symbol||f.status!=='pending')continue;
+  const idx=ds.bars.findIndex(b=>b.date===f.barDate);
+  if(idx<0){f.status='invalid';changed=true;continue;}
+  if(Math.abs(ds.bars[idx].close/f.entry-1)>0.0000001){f.status='invalid';changed=true;continue;}
+  const end=idx+f.horizon;
+  if(end>last)continue;
+  const exit=ds.bars[end].close;
+  f.status='resolved';f.exit=exit;f.exitDate=ds.bars[end].date;
+  f.observed=(exit/f.entry-1)*100;
+  f.success=f.direction*f.observed>0;
+  f.baseUp=f.observed>0;
+  changed=true;
+ }
+ if(changed){save();toast('Forward audit updated for '+ds.symbol+'. Review outcomes in Audit.');}
+}
+function retrospectiveScore(ds,horizon){
+ const last=lastCompleteIndex(ds);
+ if(last<60+horizon)return {tested:0,signals:0,hits:0,baseline:0};
+ const calc=computedRule(ds);let tested=0,signals=0,hits=0,baseline=0;
+ for(let i=51;i+horizon<=last;i++){
+  tested++;
+  const d=directionAt(calc,i);
+  if(!d)continue;
+  signals++;
+  const outcome=ds.bars[i+horizon].close/ds.bars[i].close-1;
+  if(d*outcome>0)hits++;
+  if(outcome>0)baseline++;
+ }
+ return {tested,signals,hits,baseline};
+}
+function renderAudit(){
+ const ds=state.datasets[$('auditAsset').value],h=Number($('auditHorizon').value)||5;
+ const blocker=canRecordCall(ds);
+ $('auditProvenance').textContent=dataProvenance(ds);
+ const i=ds?lastCompleteIndex(ds):-1;
+ let dir=0;
+ if(ds&&i>=51)dir=directionAt(computedRule(ds),i);
+ $('auditSignal').textContent=(blocker?blocker+' ':'')+
+     (ds&&i>=0?'Last completed bar: '+ds.bars[i].date+' · '+nicePrice(ds.bars[i].close)+' · ':'')+
+     (dir===1?'BULLISH WATCH':dir===-1?'BEARISH WATCH':'WAIT / NO DIRECTIONAL CALL')+
+     ' · rule trend-v1 · horizon '+h+' days (bars).';
+ $('auditSignal').className='notice '+(blocker?'warn':dir?'good':'');
+ $('recordForecast').disabled=!!blocker||!dir;
+ const p=prospectiveResults();
+ $('auditResolved').textContent=String(p.settled.length);
+ $('auditHit').textContent=p.settled.length?fmt(p.hits/p.settled.length*100,1)+'%':'—';
+ $('auditBase').textContent=p.settled.length?fmt(p.up/p.settled.length*100,1)+'%':'—';
+ $('auditPending').textContent=String(p.pending);
+ $('auditQuality').textContent=p.settled.length<30?'Only '+p.settled.length+' resolved forward calls. Fewer than 30 observations: insufficient evidence of predictive performance.':'Resolved calls: '+p.settled.length+'. Compare against baseline and costs; time windows may overlap. Not an audited probability.';
+ const v=ds?retrospectiveScore(ds,h):{tested:0,signals:0,hits:0,baseline:0};
+ $('retroSignals').textContent=v.signals+' / '+v.tested;
+ $('retroHit').textContent=v.signals?fmt(v.hits/v.signals*100,1)+'%':'—';
+ $('retroBase').textContent=v.signals?fmt(v.baseline/v.signals*100,1)+'%':'—';
+ $('retroCoverage').textContent=v.tested?fmt(v.signals/v.tested*100,1)+'%':'—';
+ $('retroNotes').textContent=(ds?ds.symbol+': ':'')+(ds?.origin==='synthetic'?'SYNTHETIC PRACTICE DATA: results have no real market meaning. ':'')+(v.signals?'Historical diagnostic only; '+v.signals+' overlapping directional cases over '+v.tested+' eligible bars. Use forward audit to verify future results.':'Not enough qualified historical signals to report accuracy.');
+ const root=$('auditLedger');root.replaceChildren();
+ const rows=[...(state.forecasts||[])].reverse().slice(0,150);
+ if(!rows.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=6;td.textContent='No forward calls recorded.';tr.append(td);root.append(tr);}
+ for(const f of rows){const tr=document.createElement('tr');const fields=[f.created.slice(0,16),f.symbol+' / '+f.barDate,f.direction>0?'BULLISH':'BEARISH',f.horizon+' bars',f.status==='resolved'?(pct(f.observed)+' by '+f.exitDate):'—',f.status==='resolved'?(f.success?'HIT':'MISS'):f.status.toUpperCase()];for(const value of fields){const td=document.createElement('td');td.textContent=String(value);tr.append(td);}root.append(tr);}
+}
+$('auditAsset').addEventListener('change',renderAudit);
+$('auditHorizon').addEventListener('change',renderAudit);
+$('recordForecast').addEventListener('click',()=>{
+ try{
+  const sym=$('auditAsset').value,ds=state.datasets[sym],h=Number($('auditHorizon').value);
+  const blocker=canRecordCall(ds);if(blocker)throw Error(blocker);
+  if(![5,10].includes(h))throw Error('Invalid evaluation horizon.');
+  const i=lastCompleteIndex(ds),bar=ds.bars[i],direction=directionAt(computedRule(ds),i);
+  if(!direction)throw Error('Rule says WAIT; no directional call to register.');
+  if(state.forecasts.some(f=>f.symbol===sym&&f.barDate===bar.date&&f.horizon===h&&f.status!=='invalid'))throw Error('This symbol/date/horizon already has a recorded call.');
+  const f={id:Date.now().toString(36)+Math.random().toString(36).slice(2,8),created:new Date().toISOString(),
+   symbol:sym,barDate:bar.date,interval:'1day',horizon:h,direction,entry:bar.close,rules:'trend-v1',
+   status:'pending',exitDate:'',exit:0,observed:0,success:false,baseUp:false,source:ds.source};
+  state.forecasts.push(f);
+  if(state.forecasts.length>500)state.forecasts=state.forecasts.slice(-500);
+  if(!save()){state.forecasts.pop();throw Error('Could not persist observation.');}
+  renderAudit();toast('Forward call recorded: '+sym+' · '+(direction===1?'UP':'DOWN')+' · '+h+' bars.');
+ }catch(e){toast('Audit: '+e.message,true);}
+});
+$('exportAudit').addEventListener('click',()=>{
+ const keys=['created','symbol','barDate','direction','horizon','entry','source','rules','status','exitDate','exit','observed','success','baseUp'];
+ const lines=[keys.join(',')];
+ for(const f of state.forecasts||[]){lines.push(keys.map(k=>csvEscape(k==='direction'?(f.direction===1?'UP':'DOWN'):f[k])).join(','));}
+ download(lines.join('\r\n'),'CHALORYX_Forward_Audit.csv','text/csv');
+});
+$('clearAudit').addEventListener('click',()=>{
+ if(!confirm('Delete ALL forward call records? Export a backup first. This cannot be undone.'))return;
+ state.forecasts=[];save();renderAudit();toast('Audit records cleared.');
+});
+// ========= end CHALORYX 3.0 module =========
+
 load();renderAll();
 })();
 </script>
